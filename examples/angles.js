@@ -1,20 +1,20 @@
 /*
-Fraction.js v5.0.0 10/1/2024
+Fraction.js v5.3.4 8/22/2025
 https://raw.org/article/rational-numbers-in-javascript/
 
-Copyright (c) 2024, Robert Eisele (https://raw.org/)
+Copyright (c) 2025, Robert Eisele (https://raw.org/)
 Licensed under the MIT license.
 */
 
 // This example generates a list of angles with human readable radians
 
-var Fraction = require('fraction.js');
+const Fraction = require('fraction.js');
 
-var tab = [];
-for (var d = 1; d <= 360; d++) {
+const tab = [];
+for (let d = 1; d <= 360; d++) {
 
-   var pi = Fraction(2, 360).mul(d);
-   var tau = Fraction(1, 360).mul(d);
+   const pi = Fraction(2, 360).mul(d);
+   const tau = Fraction(1, 360).mul(d);
 
    if (pi.d <= 6n && pi.d != 5n)
       tab.push([

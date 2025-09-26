@@ -1,8 +1,8 @@
 /*
-Fraction.js v5.0.0 10/1/2024
+Fraction.js v5.3.4 8/22/2025
 https://raw.org/article/rational-numbers-in-javascript/
 
-Copyright (c) 2024, Robert Eisele (https://raw.org/)
+Copyright (c) 2025, Robert Eisele (https://raw.org/)
 Licensed under the MIT license.
 */
 const Fraction = require('fraction.js');

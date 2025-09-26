@@ -1,4 +1,12 @@
 /*
+Fraction.js v5.3.4 8/22/2025
+https://raw.org/article/rational-numbers-in-javascript/
+
+Copyright (c) 2025, Robert Eisele (https://raw.org/)
+Licensed under the MIT license.
+*/
+
+/*
 Given the ratio a : b : c = 2 : 3 : 4 
 What is c, given a = 40?
 
