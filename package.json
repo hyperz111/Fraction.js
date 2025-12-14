@@ -70,6 +70,10 @@
     "example": "examples",
     "test": "tests"
   },
+  "files": [
+    "fraction.d.?(m)ts",
+    "dist"
+  ],
   "scripts": {
     "build": "crude-build Fraction",
     "test": "mocha tests/*.js"
