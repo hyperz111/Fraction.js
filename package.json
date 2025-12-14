@@ -75,6 +75,7 @@
     "dist"
   ],
   "scripts": {
+    "prepublishOnly": "npm run build",
     "build": "crude-build Fraction",
     "test": "mocha tests/*.js"
   },
