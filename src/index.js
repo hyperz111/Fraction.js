@@ -1,32 +1,3 @@
-/**
- *
- * This class offers the possibility to calculate fractions.
- * You can pass a fraction in different formats. Either as array, as double, as string or as an integer.
- *
- * Array/Object form
- * [ 0 => <numerator>, 1 => <denominator> ]
- * { n => <numerator>, d => <denominator> }
- *
- * Integer form
- * - Single integer value as BigInt or Number
- *
- * Double form
- * - Single double value as Number
- *
- * String form
- * 123.456 - a simple double
- * 123/456 - a string fraction
- * 123.'456' - a double with repeating decimal places
- * 123.(456) - synonym
- * 123.45'6' - a double with repeating last place
- * 123.45(6) - synonym
- *
- * Example:
- * let f = new Fraction("9.4'31'");
- * f.mul([-4, 3]).div(4.9);
- *
- */
-
 const C_ZERO = 0n;
 const C_ONE = 1n;
 const C_TWO = 2n;
@@ -751,9 +722,9 @@ class Fraction {
 
   /**
    * Compare two rational numbers
-   * < 0 iff this < that
-   * > 0 iff this > that
-   * = 0 iff this = that
+   * < 0 if this < that
+   * > 0 if this > that
+   * = 0 if this = that
    *
    * Ex: new Fraction(19.6).compare([98, 5]);
    **/
