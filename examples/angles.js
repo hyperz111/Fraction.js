@@ -12,15 +12,11 @@ const Fraction = require('fraction.js');
 
 const tab = [];
 for (let d = 1; d <= 360; d++) {
+  const pi = Fraction(2, 360).mul(d);
+  const tau = Fraction(1, 360).mul(d);
 
-   const pi = Fraction(2, 360).mul(d);
-   const tau = Fraction(1, 360).mul(d);
-
-   if (pi.d <= 6n && pi.d != 5n)
-      tab.push([
-         d,
-         pi.toFraction() + "pi",
-         tau.toFraction() + "tau"]);
+  if (pi.d <= 6n && pi.d != 5n)
+    tab.push([d, pi.toFraction() + 'pi', tau.toFraction() + 'tau']);
 }
 
 console.table(tab);

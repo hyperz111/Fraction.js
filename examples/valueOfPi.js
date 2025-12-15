@@ -6,11 +6,12 @@ Copyright (c) 2025, Robert Eisele (https://raw.org/)
 Licensed under the MIT license.
 */
 
-var Fraction = require("fraction.js")
+var Fraction = require('fraction.js');
 
 function valueOfPi(val) {
-
-  let minLen = Infinity, minI = 0, min = null;
+  let minLen = Infinity,
+    minI = 0,
+    min = null;
   const choose = [val, val * Math.PI, val / Math.PI];
   for (let i = 0; i < choose.length; i++) {
     let el = new Fraction(choose[i]).simplify(1e-13);
@@ -23,13 +24,21 @@ function valueOfPi(val) {
   }
 
   if (minI == 2) {
-    return min.toFraction().replace(/(\d+)(\/\d+)?/, (_, p, q) =>
-      (p == "1" ? "" : p) + "π" + (q || ""));
+    return min
+      .toFraction()
+      .replace(
+        /(\d+)(\/\d+)?/,
+        (_, p, q) => (p == '1' ? '' : p) + 'π' + (q || ''),
+      );
   }
 
   if (minI == 1) {
-    return min.toFraction().replace(/(\d+)(\/\d+)?/, (_, p, q) =>
-      p + (!q ? "/π" : "/(" + q.slice(1) + "π)"));
+    return min
+      .toFraction()
+      .replace(
+        /(\d+)(\/\d+)?/,
+        (_, p, q) => p + (!q ? '/π' : '/(' + q.slice(1) + 'π)'),
+      );
   }
   return min.toFraction();
 }
@@ -37,6 +46,6 @@ function valueOfPi(val) {
 console.log(valueOfPi(-3)); // -3
 console.log(valueOfPi(4 * Math.PI)); // 4π
 console.log(valueOfPi(3.14)); // 157/50
-console.log(valueOfPi(3 / 2 * Math.PI)); // 3π/2
+console.log(valueOfPi((3 / 2) * Math.PI)); // 3π/2
 console.log(valueOfPi(Math.PI / 2)); // π/2
 console.log(valueOfPi(-1 / (2 * Math.PI))); // -1/(2π)

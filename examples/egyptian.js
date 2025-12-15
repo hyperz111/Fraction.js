@@ -10,7 +10,6 @@ const Fraction = require('fraction.js');
 
 // Based on http://www.maths.surrey.ac.uk/hosted-sites/R.Knott/Fractions/egyptian.html
 function egyptian(a, b) {
-
   const res = [];
 
   do {
@@ -22,4 +21,4 @@ function egyptian(a, b) {
   } while (a !== 0n);
   return res;
 }
-console.log("1 / " + egyptian(521, 1050).join(" + 1 / "));
+console.log('1 / ' + egyptian(521, 1050).join(' + 1 / '));

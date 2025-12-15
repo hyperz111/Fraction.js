@@ -29,7 +29,6 @@ We now want to find lim ->oo x[n], with the starting element of (3 2)^T
 
 // Get the Hesse Matrix
 function H(x) {
-
   var z = Fraction(1).sub(Fraction(4).mul(x[0]));
 
   return [
@@ -42,70 +41,55 @@ function H(x) {
 
 // Get the gradient of f(x)
 function grad(x) {
-
-  return [
-    Fraction(x[0]).mul(x[0]).add(x[1]),
-    Fraction(2).mul(x[1]).add(x[0])
-  ];
+  return [Fraction(x[0]).mul(x[0]).add(x[1]), Fraction(2).mul(x[1]).add(x[0])];
 }
 
 // A simple matrix multiplication helper
 function matrMult(m, v) {
-
   return [
     Fraction(m[0]).mul(v[0]).add(Fraction(m[1]).mul(v[1])),
-    Fraction(m[2]).mul(v[0]).add(Fraction(m[3]).mul(v[1]))
+    Fraction(m[2]).mul(v[0]).add(Fraction(m[3]).mul(v[1])),
   ];
 }
 
 // A simple vector subtraction helper
 function vecSub(a, b) {
-
-  return [
-    Fraction(a[0]).sub(b[0]),
-    Fraction(a[1]).sub(b[1])
-  ];
+  return [Fraction(a[0]).sub(b[0]), Fraction(a[1]).sub(b[1])];
 }
 
 // Main function, gets a vector and the actual index
 function run(V, j) {
-
   var t = H(V);
   //console.log("H(X)");
   for (var i in t) {
-
     //	console.log(t[i].toFraction());
   }
 
   var s = grad(V);
   //console.log("vf(X)");
   for (var i in s) {
-
     //	console.log(s[i].toFraction());
   }
 
   //console.log("multiplication");
   var r = matrMult(t, s);
   for (var i in r) {
-
     //	console.log(r[i].toFraction());
   }
 
-  var R = (vecSub(V, r));
+  var R = vecSub(V, r);
 
-  console.log("X" + j);
-  console.log(R[0].toFraction(), "= " + R[0].valueOf());
-  console.log(R[1].toFraction(), "= " + R[1].valueOf());
-  console.log("\n");
+  console.log('X' + j);
+  console.log(R[0].toFraction(), '= ' + R[0].valueOf());
+  console.log(R[1].toFraction(), '= ' + R[1].valueOf());
+  console.log('\n');
 
   return R;
 }
-
 
 // Set the starting vector
 var v = [3, 2];
 
 for (var i = 0; i < 15; i++) {
-
   v = run(v, i);
 }

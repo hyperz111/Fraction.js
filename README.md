@@ -1,27 +1,27 @@
 # Fraction.js - ℚ in JavaScript
 
-[![NPM Package](https://img.shields.io/npm/v/fraction.js.svg?style=flat)](https://npmjs.org/package/fraction.js "View this project on npm")
+[![NPM Package](https://img.shields.io/npm/v/fraction.js.svg?style=flat)](https://npmjs.org/package/fraction.js 'View this project on npm')
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 
 Do you find the limitations of floating-point arithmetic frustrating, especially when rational and irrational numbers like π or √2 are stored within the same finite precision? This can lead to avoidable inaccuracies such as:
 
 ```javascript
-1 / 98 * 98 // Results in 0.9999999999999999
+(1 / 98) * 98; // Results in 0.9999999999999999
 ```
 
-For applications requiring higher precision or where working with fractions is preferable, consider incorporating *Fraction.js* into your project.
+For applications requiring higher precision or where working with fractions is preferable, consider incorporating _Fraction.js_ into your project.
 
 The library effectively addresses precision issues, as demonstrated below:
 
 ```javascript
-Fraction(1).div(98).mul(98) // Returns 1
+Fraction(1).div(98).mul(98); // Returns 1
 ```
 
-*Fraction.js* uses a `BigInt` representation for both the numerator and denominator, ensuring minimal performance overhead while maximizing accuracy. Its design is optimized for precision, making it an ideal choice as a foundational library for other math tools, such as [Polynomial.js](https://github.com/rawify/Polynomial.js) and [Math.js](https://github.com/josdejong/mathjs).
+_Fraction.js_ uses a `BigInt` representation for both the numerator and denominator, ensuring minimal performance overhead while maximizing accuracy. Its design is optimized for precision, making it an ideal choice as a foundational library for other math tools, such as [Polynomial.js](https://github.com/rawify/Polynomial.js) and [Math.js](https://github.com/josdejong/mathjs).
 
 ## Convert Decimal to Fraction
 
-One of the core features of *Fraction.js* is its ability to seamlessly convert decimal numbers into fractions.
+One of the core features of _Fraction.js_ is its ability to seamlessly convert decimal numbers into fractions.
 
 ```javascript
 let x = new Fraction(1.88);
@@ -32,17 +32,18 @@ This is particularly useful when you need precise fraction representations inste
 
 ```javascript
 let x = new Fraction(0.33333);
-let res = x.simplify(0.001) // Error < 0.001
-       .toFraction(); // Returns "1/3" as a string
+let res = x
+  .simplify(0.001) // Error < 0.001
+  .toFraction(); // Returns "1/3" as a string
 ```
 
 ## Precision
 
-As native `BigInt` support in JavaScript becomes more common, libraries like *Fraction.js* use it to handle calculations with higher precision. This improves the speed and accuracy of math operations with large numbers, providing a better solution for tasks that need more precision than floating-point numbers can offer.
+As native `BigInt` support in JavaScript becomes more common, libraries like _Fraction.js_ use it to handle calculations with higher precision. This improves the speed and accuracy of math operations with large numbers, providing a better solution for tasks that need more precision than floating-point numbers can offer.
 
 ## Examples / Motivation
 
-A simple example of using *Fraction.js* might look like this:
+A simple example of using _Fraction.js_ might look like this:
 
 ```javascript
 var f = new Fraction("9.4'31'"); // 9.4313131313131...
@@ -67,11 +68,11 @@ If you attempted to calculate this manually using floating-point arithmetic, you
 (9.4313131 * (-4 / 3)) % 4.888888 = -2.797308133...
 ```
 
-While the result is reasonably close, it’s not as accurate as the fraction-based approach that *Fraction.js* provides, especially when dealing with repeating decimals or complex operations. This highlights the value of precision that the library brings.
+While the result is reasonably close, it’s not as accurate as the fraction-based approach that _Fraction.js_ provides, especially when dealing with repeating decimals or complex operations. This highlights the value of precision that the library brings.
 
 ### Laplace Probability
 
-Here's a straightforward example of using *Fraction.js* to calculate probabilities. Let's determine the probability of rolling a specific outcome on a fair die:
+Here's a straightforward example of using _Fraction.js_ to calculate probabilities. Let's determine the probability of rolling a specific outcome on a fair die:
 
 - **P({3})**: The probability of rolling a 3.
 - **P({1, 4})**: The probability of rolling either 1 or 4.
@@ -104,37 +105,36 @@ var deg = 57; // 57°
 var min = 45; // 45 Minutes
 var sec = 17; // 17 Seconds
 
-new Fraction(deg).add(min, 60).add(sec, 3600).toString() // -> 57.7547(2)
+new Fraction(deg).add(min, 60).add(sec, 3600).toString(); // -> 57.7547(2)
 ```
-
 
 ### Rational approximation of irrational numbers
 
-To approximate a number like *sqrt(5) - 2* with a numerator and denominator, you can reformat the equation as follows: *pow(n / d + 2, 2) = 5*.
+To approximate a number like _sqrt(5) - 2_ with a numerator and denominator, you can reformat the equation as follows: _pow(n / d + 2, 2) = 5_.
 
 Then the following algorithm will generate the rational number besides the binary representation.
 
 ```javascript
-var x = "/", s = "";
+var x = '/',
+  s = '';
 
 var a = new Fraction(0),
-    b = new Fraction(1);
+  b = new Fraction(1);
 for (var n = 0; n <= 10; n++) {
-
   var c = a.add(b).div(2);
 
-  console.log(n + "\t" + a + "\t" + b + "\t" + c + "\t" + x);
+  console.log(n + '\t' + a + '\t' + b + '\t' + c + '\t' + x);
 
   if (c.add(2).pow(2).valueOf() < 5) {
     a = c;
-    x = "1";
+    x = '1';
   } else {
     b = c;
-    x = "0";
+    x = '0';
   }
-  s+= x;
+  s += x;
 }
-console.log(s)
+console.log(s);
 ```
 
 The result is
@@ -154,43 +154,39 @@ n   a[n]        b[n]        c[n]            x[n]
 10  241/1024    121/512     483/2048        1
 ```
 
-Thus the approximation after 11 iterations of the bisection method is *483 / 2048* and the binary representation is 0.00111100011 (see [WolframAlpha](http://www.wolframalpha.com/input/?i=sqrt%285%29-2+binary))
+Thus the approximation after 11 iterations of the bisection method is _483 / 2048_ and the binary representation is 0.00111100011 (see [WolframAlpha](http://www.wolframalpha.com/input/?i=sqrt%285%29-2+binary))
 
 I published another example on how to approximate PI with fraction.js on my [blog](https://raw.org/article/rational-numbers-in-javascript/) (Still not the best idea to approximate irrational numbers, but it illustrates the capabilities of Fraction.js perfectly).
-
 
 ### Get the exact fractional part of a number
 
 ```javascript
-var f = new Fraction("-6.(3416)");
+var f = new Fraction('-6.(3416)');
 console.log(f.mod(1).abs().toFraction()); // = 3416/9999
 ```
 
 ### Mathematical correct modulo
 
-The behaviour on negative congruences is different to most modulo implementations in computer science. Even the *mod()* function of Fraction.js behaves in the typical way. To solve the problem of having the mathematical correct modulo with Fraction.js you could come up with this:
+The behaviour on negative congruences is different to most modulo implementations in computer science. Even the _mod()_ function of Fraction.js behaves in the typical way. To solve the problem of having the mathematical correct modulo with Fraction.js you could come up with this:
 
 ```javascript
 var a = -1;
 var b = 10.99;
 
-console.log(new Fraction(a)
-  .mod(b)); // Not correct, usual Modulo
+console.log(new Fraction(a).mod(b)); // Not correct, usual Modulo
 
-console.log(new Fraction(a)
-  .mod(b).add(b).mod(b)); // Correct! Mathematical Modulo
+console.log(new Fraction(a).mod(b).add(b).mod(b)); // Correct! Mathematical Modulo
 ```
 
-fmod() imprecision circumvented
----
+## fmod() imprecision circumvented
+
 It turns out that Fraction.js outperforms almost any fmod() implementation, including JavaScript itself, [php.js](http://phpjs.org/functions/fmod/), C++, Python, Java and even Wolframalpha due to the fact that numbers like 0.05, 0.1, ... are infinite decimal in base 2.
 
-The equation *fmod(4.55, 0.05)* gives *0.04999999999999957*, wolframalpha says *1/20*. The correct answer should be **zero**, as 0.05 divides 4.55 without any remainder.
-
+The equation _fmod(4.55, 0.05)_ gives _0.04999999999999957_, wolframalpha says _1/20_. The correct answer should be **zero**, as 0.05 divides 4.55 without any remainder.
 
 ## Parser
 
-Any function (see below) as well as the constructor of the *Fraction* class parses its input and reduce it to the smallest term.
+Any function (see below) as well as the constructor of the _Fraction_ class parses its input and reduce it to the smallest term.
 
 You can pass either Arrays, Objects, Integers, Doubles or Strings.
 
@@ -199,7 +195,7 @@ You can pass either Arrays, Objects, Integers, Doubles or Strings.
 ```javascript
 new Fraction(numerator, denominator);
 new Fraction([numerator, denominator]);
-new Fraction({n: numerator, d: denominator});
+new Fraction({ n: numerator, d: denominator });
 ```
 
 ### Integers
@@ -218,18 +214,17 @@ new Fraction(55.4);
 
 The method is really precise, but too large exact numbers, like 1234567.9991829 will result in a wrong approximation. If you want to keep the number as it is, convert it to a string, as the string parser will not perform any further observations. If you have problems with the approximation, in the file `examples/approx.js` is a different approximation algorithm, which might work better in some more specific use-cases.
 
-
 ### Strings
 
 ```javascript
-new Fraction("123.45");
-new Fraction("123/45"); // A rational number represented as two decimals, separated by a slash
-new Fraction("123:45"); // A rational number represented as two decimals, separated by a colon
-new Fraction("4 123/45"); // A rational number represented as a whole number and a fraction
+new Fraction('123.45');
+new Fraction('123/45'); // A rational number represented as two decimals, separated by a slash
+new Fraction('123:45'); // A rational number represented as two decimals, separated by a colon
+new Fraction('4 123/45'); // A rational number represented as a whole number and a fraction
 new Fraction("123.'456'"); // Note the quotes, see below!
-new Fraction("123.(456)"); // Note the brackets, see below!
+new Fraction('123.(456)'); // Note the brackets, see below!
 new Fraction("123.45'6'"); // Note the quotes, see below!
-new Fraction("123.45(6)"); // Note the brackets, see below!
+new Fraction('123.45(6)'); // Note the brackets, see below!
 ```
 
 ### Two arguments
@@ -240,34 +235,30 @@ new Fraction(3, 2); // 3/2 = 1.5
 
 ### Repeating decimal places
 
-*Fraction.js* can easily handle repeating decimal places. For example *1/3* is *0.3333...*. There is only one repeating digit. As you can see in the examples above, you can pass a number like *1/3* as "0.'3'" or "0.(3)", which are synonym. There are no tests to parse something like 0.166666666 to 1/6! If you really want to handle this number, wrap around brackets on your own with the function below for example: 0.1(66666666)
+_Fraction.js_ can easily handle repeating decimal places. For example _1/3_ is _0.3333..._. There is only one repeating digit. As you can see in the examples above, you can pass a number like _1/3_ as "0.'3'" or "0.(3)", which are synonym. There are no tests to parse something like 0.166666666 to 1/6! If you really want to handle this number, wrap around brackets on your own with the function below for example: 0.1(66666666)
 
-Assume you want to divide 123.32 / 33.6(567). [WolframAlpha](http://www.wolframalpha.com/input/?i=123.32+%2F+%2812453%2F370%29) states that you'll get a period of 1776 digits. *Fraction.js* comes to the same result. Give it a try:
+Assume you want to divide 123.32 / 33.6(567). [WolframAlpha](http://www.wolframalpha.com/input/?i=123.32+%2F+%2812453%2F370%29) states that you'll get a period of 1776 digits. _Fraction.js_ comes to the same result. Give it a try:
 
 ```javascript
-var f = new Fraction("123.32");
-console.log("Bam: " + f.div("33.6(567)"));
+var f = new Fraction('123.32');
+console.log('Bam: ' + f.div('33.6(567)'));
 ```
 
 To automatically make a number like "0.123123123" to something more Fraction.js friendly like "0.(123)", I hacked this little brute force algorithm in a 10 minutes. Improvements are welcome...
 
 ```javascript
 function formatDecimal(str) {
-
   var comma, pre, offset, pad, times, repeat;
 
-  if (-1 === (comma = str.indexOf(".")))
-    return str;
+  if (-1 === (comma = str.indexOf('.'))) return str;
 
   pre = str.substr(0, comma + 1);
   str = str.substr(comma + 1);
 
   for (var i = 0; i < str.length; i++) {
-
     offset = str.substr(0, i);
 
     for (var j = 0; j < 5; j++) {
-
       pad = str.substr(i, j + 1);
 
       times = Math.ceil((str.length - offset.length) / pad.length);
@@ -275,21 +266,21 @@ function formatDecimal(str) {
       repeat = new Array(times + 1).join(pad); // Silly String.repeat hack
 
       if (0 === (offset + repeat).indexOf(str)) {
-        return pre + offset + "(" + pad + ")";
+        return pre + offset + '(' + pad + ')';
       }
     }
   }
   return null;
 }
 
-var f, x = formatDecimal("13.0123123123"); // = 13.0(123)
+var f,
+  x = formatDecimal('13.0123123123'); // = 13.0(123)
 if (x !== null) {
   f = new Fraction(x);
 }
 ```
 
 ## Attributes
-
 
 The Fraction object allows direct access to the numerator, denominator and sign attributes. It is ensured that only the sign-attribute holds sign information so that a sign comparison is only necessary against this attribute.
 
@@ -299,7 +290,6 @@ console.log(f.n); // Numerator: 1
 console.log(f.d); // Denominator: 2
 console.log(f.s); // Sign: -1
 ```
-
 
 ## Functions
 
@@ -337,7 +327,7 @@ Returns the logarithm of the actual number to a given rational base. If the resu
 
 ### Fraction mod(n)
 
-Returns the modulus (rest of the division) of the actual object and n (this % n). It's a much more precise [fmod()](#fmod-impreciseness-circumvented) if you like. Please note that *mod()* is just like the modulo operator of most programming languages. If you want a mathematical correct modulo, see [here](#mathematical-correct-modulo).
+Returns the modulus (rest of the division) of the actual object and n (this % n). It's a much more precise [fmod()](#fmod-impreciseness-circumvented) if you like. Please note that _mod()_ is just like the modulo operator of most programming languages. If you want a mathematical correct modulo, see [here](#mathematical-correct-modulo).
 
 ### Fraction mod()
 
@@ -365,7 +355,7 @@ Returns the rational number rounded with Math.round
 
 ### Fraction roundTo(multiple)
 
-Rounds a fraction to the closest multiple of another fraction. 
+Rounds a fraction to the closest multiple of another fraction.
 
 ### Fraction inverse()
 
@@ -398,6 +388,7 @@ Check if this rational number is greater than or equal another
 ### int compare(n)
 
 Compare two numbers.
+
 ```
 result < 0: n is greater than actual number
 result > 0: n is smaller than actual number
@@ -443,11 +434,9 @@ var c = f.toContinued(); // [2, 1, 2]
 
 Creates a copy of the actual Fraction object
 
-
 ## Exceptions
 
-If a really hard error occurs (parsing error, division by zero), *Fraction.js* throws exceptions! Please make sure you handle them correctly.
-
+If a really hard error occurs (parsing error, division by zero), _Fraction.js_ throws exceptions! Please make sure you handle them correctly.
 
 ## Installation
 
@@ -476,7 +465,7 @@ Include the `fraction.min.js` file in your project:
 ```html
 <script src="path/to/fraction.min.js"></script>
 <script>
-  var x = new Fraction("13/4");
+  var x = new Fraction('13/4');
 </script>
 ```
 
@@ -486,12 +475,11 @@ Or in a Node.js project:
 const Fraction = require('fraction.js');
 ```
 
-or 
+or
 
 ```javascript
 import Fraction from 'fraction.js';
 ```
-
 
 ## Coding Style
 

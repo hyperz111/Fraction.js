@@ -24,29 +24,12 @@
     "simplification"
   ],
   "private": false,
-  "main": "./dist/fraction.js",
-  "module": "./dist/fraction.mjs",
-  "browser": "./dist/fraction.min.js",
-  "unpkg": "./dist/fraction.min.js",
-  "types": "./fraction.d.mts",
   "exports": {
     ".": {
-      "types": {
-        "import": "./fraction.d.mts",
-        "require": "./fraction.d.ts"
-      },
-      "import": "./dist/fraction.mjs",
-      "require": "./dist/fraction.js",
-      "browser": "./dist/fraction.min.js"
+      "types": "./src/index.d.ts",
+      "default": "./src/index.js"
     },
     "./package.json": "./package.json"
-  },
-  "typesVersions": {
-    "<4.7": {
-      "*": [
-        "fraction.d.ts"
-      ]
-    }
   },
   "sideEffects": false,
   "repository": {
@@ -71,16 +54,20 @@
     "test": "tests"
   },
   "files": [
-    "fraction.d.?(m)ts",
-    "dist"
+    "src"
   ],
-  "scripts": {
-    "prepublishOnly": "npm run build",
-    "build": "crude-build Fraction",
-    "test": "mocha tests/*.js"
+  "prettier": {
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "endOfLine": "lf"
   },
-  "devDependencies": {
-    "crude-build": "^0.1.2",
-    "mocha": "*"
+  "scripts": {
+    "test": "uvu tests/fraction.test.js",
+    "format": "prettier -w ."
+  },
+  "dependencies": {
+    "prettier": "^3.7.4",
+    "uvu": "^0.5.6"
   }
 }

@@ -10,7 +10,6 @@ const Fraction = require('fraction.js');
 
 // Another rational approximation, not using Farey Sequences but Binary Search using the mediant
 function approximate(p, precision) {
-
   let num1 = Math.floor(p);
   let den1 = 1;
 
@@ -18,13 +17,10 @@ function approximate(p, precision) {
   let den2 = 1;
 
   if (p !== num1) {
-
     while (den1 <= precision && den2 <= precision) {
-
       const m = (num1 + num2) / (den1 + den2);
 
       if (p === m) {
-
         if (den1 + den2 <= precision) {
           den1 += den2;
           num1 += num2;
@@ -35,7 +31,6 @@ function approximate(p, precision) {
           den1 = precision + 1;
         }
         break;
-
       } else if (p < m) {
         num2 += num1;
         den2 += den1;
@@ -52,4 +47,3 @@ function approximate(p, precision) {
   }
   return new Fraction(num1, den1);
 }
-
