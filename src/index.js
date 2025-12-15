@@ -96,6 +96,7 @@ const FACTORSTEPS = [
   C_TWO,
   C_TWO * C_THREE,
 ]; // repeats
+
 function factorize(n) {
   const factors = Object.create(null);
   if (n <= C_ONE) {
@@ -103,9 +104,9 @@ function factorize(n) {
     return factors;
   }
 
-  const add = (p) => {
+  const add = (p) => (
     factors[p] = (factors[p] || C_ZERO) + C_ONE;
-  };
+  );
 
   while (n % C_TWO === C_ZERO) {
     add(C_TWO);
@@ -134,7 +135,7 @@ function factorize(n) {
   return factors;
 }
 
-const parse = function (p1, p2) {
+function parse(p1, p2) {
   let n = C_ZERO,
     d = C_ONE,
     s = C_ONE;
@@ -783,7 +784,7 @@ class Fraction {
     places = C_TEN ** BigInt(places || 0);
 
     return newFraction(
-      ((this.s * places * this.n) / this.d) +
+      (this.s * places * this.n) / this.d +
         ((places * this.n) % this.d > C_ZERO && this.s >= C_ZERO
           ? C_ONE
           : C_ZERO),
@@ -800,7 +801,7 @@ class Fraction {
     places = C_TEN ** BigInt(places || 0);
 
     return newFraction(
-      ((this.s * places * this.n) / this.d) -
+      (this.s * places * this.n) / this.d -
         ((places * this.n) % this.d > C_ZERO && this.s < C_ZERO
           ? C_ONE
           : C_ZERO),
@@ -832,7 +833,7 @@ class Fraction {
     */
 
     return newFraction(
-      ((this.s * places * this.n) / this.d) +
+      (this.s * places * this.n) / this.d +
         this.s *
           ((this.s >= C_ZERO ? C_ONE : C_ZERO) +
             C_TWO * ((places * this.n) % this.d) >
@@ -863,7 +864,7 @@ class Fraction {
     const r = n % d;
 
     // round(n / d) = (n / d) + 2(n % d) >= d ? 1 : 0
-    let k = (n / d);
+    let k = n / d;
     if (r + r >= d) {
       k++;
     }
@@ -907,7 +908,7 @@ class Fraction {
     let str = this.s < C_ZERO ? '-' : '';
 
     // Append integer part
-    str += (N / D);
+    str += N / D;
 
     N %= D;
     N *= C_TEN;
@@ -916,20 +917,20 @@ class Fraction {
 
     if (cycLen) {
       for (let i = cycOff; i--; ) {
-        str += (N / D);
+        str += N / D;
         N %= D;
         N *= C_TEN;
       }
       str += '(';
       for (let i = cycLen; i--; ) {
-        str += (N / D);
+        str += N / D;
         N %= D;
         N *= C_TEN;
       }
       str += ')';
     } else {
       for (let i = dec; N && i--; ) {
-        str += (N / D);
+        str += N / D;
         N %= D;
         N *= C_TEN;
       }
@@ -950,7 +951,7 @@ class Fraction {
     if (d === C_ONE) {
       str += n;
     } else {
-      const whole = (n / d);
+      const whole = n / d;
       if (showMixed && whole > C_ZERO) {
         str += whole;
         str += ' ';
@@ -977,7 +978,7 @@ class Fraction {
     if (d === C_ONE) {
       str += n;
     } else {
-      const whole = (n / d);
+      const whole = n / d;
       if (showMixed && whole > C_ZERO) {
         str += whole;
         n %= d;
@@ -1003,7 +1004,7 @@ class Fraction {
     const res = [];
 
     while (b) {
-      res.push((a / b));
+      res.push(a / b);
       const t = a % b;
       a = b;
       b = t;
