@@ -1018,3 +1018,5 @@ class Fraction {
     return this;
   }
 }
+
+exports.Fraction = Fraction;
