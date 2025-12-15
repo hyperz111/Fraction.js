@@ -388,39 +388,28 @@ function gcd(a, b) {
  * @param {number|Fraction=} a
  * @param {number=} b
  */
-function Fraction(a, b) {
+class Fraction {
+	s = C_ONE;
+  n = C_ZERO;
+  d = C_ONE;
 
-  parse(a, b);
+	constructor(a, b) {
+		parse(a, b);
 
-  if (this instanceof Fraction) {
-    a = gcd(P.d, P.n); // Abuse a
+		a = gcd(P.d, P.n); // Abuse a
     this.s = P.s;
     this.n = P.n / a;
     this.d = P.d / a;
-  } else {
-    return newFraction(P.s * P.n, P.d);
-  }
-}
-
-const DivisionByZero = function () { return new Error("Division by Zero"); };
-const InvalidParameter = function () { return new Error("Invalid argument"); };
-const NonIntegerParameter = function () { return new Error("Parameters must be integer"); };
-
-Fraction.prototype = {
-
-  "s": C_ONE,
-  "n": C_ZERO,
-  "d": C_ONE,
-
-  /**
+	}
+	
+	/**
    * Calculates the absolute value
    *
    * Ex: new Fraction(-4).abs() => 4
    **/
   abs() {
-
     return newFraction(this.n, this.d);
-  },
+  }
 
   /**
    * Inverts the sign of the current fraction
@@ -428,9 +417,8 @@ Fraction.prototype = {
    * Ex: new Fraction(-4).neg() => 4
    **/
   neg() {
-
     return newFraction(-this.s * this.n, this.d);
-  },
+  }
 
   /**
    * Adds two rational numbers
@@ -438,13 +426,13 @@ Fraction.prototype = {
    * Ex: new Fraction({n: 2, d: 3}).add("14.9") => 467 / 30
    **/
   add(a, b) {
-
     parse(a, b);
+
     return newFraction(
       this.s * this.n * P.d + P.s * this.d * P.n,
       this.d * P.d
     );
-  },
+  }
 
   /**
    * Subtracts two rational numbers
@@ -452,13 +440,13 @@ Fraction.prototype = {
    * Ex: new Fraction({n: 2, d: 3}).add("14.9") => -427 / 30
    **/
   sub(a, b) {
-
     parse(a, b);
+
     return newFraction(
       this.s * this.n * P.d - P.s * this.d * P.n,
       this.d * P.d
     );
-  },
+  }
 
   /**
    * Multiplies two rational numbers
@@ -466,13 +454,13 @@ Fraction.prototype = {
    * Ex: new Fraction("-17.(345)").mul(3) => 5776 / 111
    **/
   mul(a, b) {
-
     parse(a, b);
+
     return newFraction(
       this.s * P.s * this.n * P.n,
       this.d * P.d
     );
-  },
+  }
 
   /**
    * Divides two rational numbers
@@ -480,13 +468,13 @@ Fraction.prototype = {
    * Ex: new Fraction("-17.(345)").inverse().div(3)
    **/
   div(a, b) {
-
     parse(a, b);
+
     return newFraction(
       this.s * P.s * this.n * P.d,
       this.d * P.n
     );
-  },
+  }
 
   /**
    * Clones the actual object
@@ -495,7 +483,7 @@ Fraction.prototype = {
    **/
   clone() {
     return newFraction(this.s * this.n, this.d);
-  },
+  }
 
   /**
    * Calculates the modulo of two rational numbers - a more precise fmod
@@ -504,7 +492,6 @@ Fraction.prototype = {
    * Ex: new Fraction(20, 10).mod().equals(0) ? "is Integer"
    **/
   mod(a, b) {
-
     if (a === undefined) {
       return newFraction(this.s * this.n % this.d, C_ONE);
     }
@@ -528,7 +515,7 @@ Fraction.prototype = {
     return newFraction(
       this.s * (P.d * this.n) % (P.n * this.d),
       P.d * this.d);
-  },
+  }
 
   /**
    * Calculates the fractional gcd of two rational numbers
@@ -536,14 +523,13 @@ Fraction.prototype = {
    * Ex: new Fraction(5,8).gcd(3,7) => 1/56
    */
   gcd(a, b) {
-
     parse(a, b);
 
     // https://raw.org/book/analysis/rational-numbers/
     // gcd(a / b, c / d) = gcd(a, c) / lcm(b, d)
 
     return newFraction(gcd(P.n, this.n) * gcd(P.d, this.d), P.d * this.d);
-  },
+  }
 
   /**
    * Calculates the fractional lcm of two rational numbers
@@ -551,7 +537,6 @@ Fraction.prototype = {
    * Ex: new Fraction(5,8).lcm(3,7) => 15
    */
   lcm(a, b) {
-
     parse(a, b);
 
     // https://raw.org/book/analysis/rational-numbers/
@@ -561,7 +546,7 @@ Fraction.prototype = {
       return newFraction(C_ZERO, C_ONE);
     }
     return newFraction(P.n * this.n, gcd(P.n, this.n) * gcd(P.d, this.d));
-  },
+  }
 
   /**
    * Gets the inverse of the fraction, means numerator and denominator are exchanged
@@ -570,7 +555,7 @@ Fraction.prototype = {
    **/
   inverse() {
     return newFraction(this.s * this.d, this.n);
-  },
+  }
 
   /**
    * Calculates the fraction to some integer exponent
@@ -578,7 +563,6 @@ Fraction.prototype = {
    * Ex: new Fraction(-1,2).pow(-3) => -8
    */
   pow(a, b) {
-
     parse(a, b);
 
     // Trivial case when exp is an integer
@@ -635,7 +619,7 @@ Fraction.prototype = {
       return newFraction(d, n);
     }
     return newFraction(n, d);
-  },
+  }
 
   /**
    * Calculates the logarithm of a fraction to a given rational base
@@ -643,7 +627,6 @@ Fraction.prototype = {
    * Ex: new Fraction(27, 8).log(9, 4) => 3/2
    */
   log(a, b) {
-
     parse(a, b);
 
     if (this.s <= C_ZERO || P.s <= C_ZERO) return null;
@@ -709,7 +692,7 @@ Fraction.prototype = {
     return retN !== null && retD !== null
       ? newFraction(retN, retD)
       : null;
-  },
+  }
 
   /**
    * Check if two rational numbers are the same
@@ -717,10 +700,10 @@ Fraction.prototype = {
    * Ex: new Fraction(19.6).equals([98, 5]);
    **/
   equals(a, b) {
-
     parse(a, b);
+
     return this.s * this.n * P.d === P.s * P.n * this.d;
-  },
+  }
 
   /**
    * Check if this rational number is less than another
@@ -728,10 +711,10 @@ Fraction.prototype = {
    * Ex: new Fraction(19.6).lt([98, 5]);
    **/
   lt(a, b) {
-
     parse(a, b);
+
     return this.s * this.n * P.d < P.s * P.n * this.d;
-  },
+  }
 
   /**
    * Check if this rational number is less than or equal another
@@ -739,10 +722,10 @@ Fraction.prototype = {
    * Ex: new Fraction(19.6).lt([98, 5]);
    **/
   lte(a, b) {
-
     parse(a, b);
+
     return this.s * this.n * P.d <= P.s * P.n * this.d;
-  },
+  }
 
   /**
    * Check if this rational number is greater than another
@@ -750,10 +733,10 @@ Fraction.prototype = {
    * Ex: new Fraction(19.6).lt([98, 5]);
    **/
   gt(a, b) {
-
     parse(a, b);
+
     return this.s * this.n * P.d > P.s * P.n * this.d;
-  },
+  }
 
   /**
    * Check if this rational number is greater than or equal another
@@ -761,10 +744,10 @@ Fraction.prototype = {
    * Ex: new Fraction(19.6).lt([98, 5]);
    **/
   gte(a, b) {
-
     parse(a, b);
+
     return this.s * this.n * P.d >= P.s * P.n * this.d;
-  },
+  }
 
   /**
    * Compare two rational numbers
@@ -775,12 +758,12 @@ Fraction.prototype = {
    * Ex: new Fraction(19.6).compare([98, 5]);
    **/
   compare(a, b) {
-
     parse(a, b);
+
     let t = this.s * this.n * P.d - P.s * P.n * this.d;
 
     return (C_ZERO < t) - (t < C_ZERO);
-  },
+  }
 
   /**
    * Calculates the ceil of a rational number
@@ -788,13 +771,12 @@ Fraction.prototype = {
    * Ex: new Fraction('4.(3)').ceil() => (5 / 1)
    **/
   ceil(places) {
-
     places = C_TEN ** BigInt(places || 0);
 
     return newFraction(ifloor(this.s * places * this.n / this.d) +
       (places * this.n % this.d > C_ZERO && this.s >= C_ZERO ? C_ONE : C_ZERO),
       places);
-  },
+  }
 
   /**
    * Calculates the floor of a rational number
@@ -802,13 +784,12 @@ Fraction.prototype = {
    * Ex: new Fraction('4.(3)').floor() => (4 / 1)
    **/
   floor(places) {
-
     places = C_TEN ** BigInt(places || 0);
 
     return newFraction(ifloor(this.s * places * this.n / this.d) -
       (places * this.n % this.d > C_ZERO && this.s < C_ZERO ? C_ONE : C_ZERO),
       places);
-  },
+  }
 
   /**
    * Rounds a rational numbers
@@ -816,7 +797,6 @@ Fraction.prototype = {
    * Ex: new Fraction('4.(3)').round() => (4 / 1)
    **/
   round(places) {
-
     places = C_TEN ** BigInt(places || 0);
 
     /* Derivation:
@@ -837,7 +817,7 @@ Fraction.prototype = {
     return newFraction(ifloor(this.s * places * this.n / this.d) +
       this.s * ((this.s >= C_ZERO ? C_ONE : C_ZERO) + C_TWO * (places * this.n % this.d) > this.d ? C_ONE : C_ZERO),
       places);
-  },
+  }
 
   /**
     * Rounds a rational number to a multiple of another rational number
@@ -845,7 +825,6 @@ Fraction.prototype = {
     * Ex: new Fraction('0.9').roundTo("1/8") => 7 / 8
     **/
   roundTo(a, b) {
-
     /*
     k * x/y ≤ a/b < (k+1) * x/y
     ⇔ k ≤ a/b / (x/y) < (k+1)
@@ -865,7 +844,7 @@ Fraction.prototype = {
       k++;
     }
     return newFraction(this.s * k * P.n, P.d);
-  },
+  }
 
   /**
    * Check if two rational numbers are divisible
@@ -873,11 +852,10 @@ Fraction.prototype = {
    * Ex: new Fraction(19.6).divisible(1.5);
    */
   divisible(a, b) {
-
     parse(a, b);
     if (P.n === C_ZERO) return false;
     return (this.n * P.d) % (P.n * this.d) === C_ZERO;
-  },
+  }
 
   /**
    * Returns a decimal representation of the fraction
@@ -888,7 +866,7 @@ Fraction.prototype = {
     //if (this.n <= MAX_INTEGER && this.d <= MAX_INTEGER) {
     return Number(this.s * this.n) / Number(this.d);
     //}
-  },
+  }
 
   /**
    * Creates a string representation of a fraction with all digits
@@ -896,7 +874,6 @@ Fraction.prototype = {
    * Ex: new Fraction("100.'91823'").toString() => "100.(91823)"
    **/
   toString(dec = 15) {
-
     let N = this.n;
     let D = this.d;
 
@@ -936,7 +913,7 @@ Fraction.prototype = {
       }
     }
     return str;
-  },
+  }
 
   /**
    * Returns a string-fraction representation of a Fraction object
@@ -944,7 +921,6 @@ Fraction.prototype = {
    * Ex: new Fraction("1.'3'").toFraction() => "4 1/3"
    **/
   toFraction(showMixed = false) {
-
     let n = this.n;
     let d = this.d;
     let str = this.s < C_ZERO ? "-" : "";
@@ -964,7 +940,7 @@ Fraction.prototype = {
       str += d;
     }
     return str;
-  },
+  }
 
   /**
    * Returns a latex representation of a Fraction object
@@ -972,7 +948,6 @@ Fraction.prototype = {
    * Ex: new Fraction("1.'3'").toLatex() => "\frac{4}{3}"
    **/
   toLatex(showMixed = false) {
-
     let n = this.n;
     let d = this.d;
     let str = this.s < C_ZERO ? "-" : "";
@@ -993,7 +968,7 @@ Fraction.prototype = {
       str += '}';
     }
     return str;
-  },
+  }
 
   /**
    * Returns an array of continued fraction elements
@@ -1001,7 +976,6 @@ Fraction.prototype = {
    * Ex: new Fraction("7/8").toContinued() => [0,1,7]
    */
   toContinued() {
-
     let a = this.n;
     let b = this.d;
     const res = [];
@@ -1013,10 +987,9 @@ Fraction.prototype = {
       b = t;
     }
     return res;
-  },
+  }
 
   simplify(eps = 1e-3) {
-
     // Continued fractions give best approximations for a max denominator,
     // generally outperforming mediants in denominator–accuracy trade-offs.
     // Semiconvergents can further reduce the denominator within tolerance.
@@ -1040,4 +1013,8 @@ Fraction.prototype = {
     }
     return this;
   }
-};
+}
+
+const DivisionByZero = function () { return new Error("Division by Zero"); };
+const InvalidParameter = function () { return new Error("Invalid argument"); };
+const NonIntegerParameter = function () { return new Error("Parameters must be integer"); };
