@@ -26,8 +26,9 @@
   "private": false,
   "exports": {
     ".": {
-      "types": "./src/index.d.ts",
-      "default": "./src/index.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
     "./package.json": "./package.json"
   },
@@ -48,14 +49,10 @@
   },
   "license": "MIT",
   "engines": {
-    "node": "*"
-  },
-  "directories": {
-    "example": "examples",
-    "test": "tests"
+    "node": ">=12"
   },
   "files": [
-    "src"
+    "dist"
   ],
   "prettier": {
     "semi": true,
