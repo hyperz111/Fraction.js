@@ -6,10 +6,10 @@ import pkg from './package.json' with { type: 'json' };
 const now = new Date();
 const banner = `
 /**
- * @license ${pkg.name} v${pkg.version} ${date.toLocaleDateString('en')}
+ * @license ${pkg.name} v${pkg.version} ${now.toLocaleDateString('en')}
  * https://raw.org/article/rational-numbers-in-javascript/
  *
- * Copyright (c) ${date.getFullYear()}, ${pkg.author.name} (${pkg.author.url})
+ * Copyright (c) ${now.getFullYear()}, ${pkg.author.name} (${pkg.author.url})
  * Licensed under the ${pkg.license} license.
  **/
 `.trim();
@@ -30,7 +30,6 @@ export default defineConfig({
   ],
   plugins: [
     terser({
-      compress: false,
       format: {
         ecma: 2020,
       },
@@ -40,7 +39,7 @@ export default defineConfig({
       targets: [
         {
           src: './src/index.d.ts',
-          dest: './dist/',
+          dest: './dist',
         },
       ],
     }),
