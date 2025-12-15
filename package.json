@@ -32,6 +32,7 @@
     "./package.json": "./package.json"
   },
   "sideEffects": false,
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/rawify/Fraction.js.git"
@@ -64,10 +65,16 @@
   },
   "scripts": {
     "test": "uvu tests",
+    "build": "rollup -c",
     "format": "prettier -w ."
   },
   "dependencies": {
     "prettier": "^3.7.4",
     "uvu": "^0.5.6"
+  },
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
+    "rollup": "^4.53.4",
+    "rollup-plugin-copy": "^3.5.0"
   }
 }

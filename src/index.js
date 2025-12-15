@@ -1,12 +1,4 @@
 /**
- * @license Fraction.js v5.3.4 8/22/2025
- * https://raw.org/article/rational-numbers-in-javascript/
- *
- * Copyright (c) 2025, Robert Eisele (https://raw.org/)
- * Licensed under the MIT license.
- **/
-
-/**
  *
  * This class offers the possibility to calculate fractions.
  * You can pass a fraction in different formats. Either as array, as double, as string or as an integer.
@@ -333,7 +325,7 @@ function parse(p1, p2) {
   P.s = s < C_ZERO ? -C_ONE : C_ONE;
   P.n = n < C_ZERO ? -n : n;
   P.d = d < C_ZERO ? -d : d;
-};
+}
 
 function modpow(b, e, m) {
   let r = C_ONE;
@@ -1036,4 +1028,4 @@ class Fraction {
   }
 }
 
-exports.Fraction = Fraction;
+export { Fraction };
