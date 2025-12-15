@@ -417,7 +417,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction(-4).abs() => 4
    **/
-  "abs": function () {
+  abs() {
 
     return newFraction(this.n, this.d);
   },
@@ -427,7 +427,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction(-4).neg() => 4
    **/
-  "neg": function () {
+  neg() {
 
     return newFraction(-this.s * this.n, this.d);
   },
@@ -437,7 +437,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction({n: 2, d: 3}).add("14.9") => 467 / 30
    **/
-  "add": function (a, b) {
+  add(a, b) {
 
     parse(a, b);
     return newFraction(
@@ -451,7 +451,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction({n: 2, d: 3}).add("14.9") => -427 / 30
    **/
-  "sub": function (a, b) {
+  sub(a, b) {
 
     parse(a, b);
     return newFraction(
@@ -465,7 +465,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction("-17.(345)").mul(3) => 5776 / 111
    **/
-  "mul": function (a, b) {
+  mul(a, b) {
 
     parse(a, b);
     return newFraction(
@@ -479,7 +479,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction("-17.(345)").inverse().div(3)
    **/
-  "div": function (a, b) {
+  div(a, b) {
 
     parse(a, b);
     return newFraction(
@@ -493,7 +493,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction("-17.(345)").clone()
    **/
-  "clone": function () {
+  clone() {
     return newFraction(this.s * this.n, this.d);
   },
 
@@ -503,7 +503,7 @@ Fraction.prototype = {
    * Ex: new Fraction('4.(3)').mod([7, 8]) => (13/3) % (7/8) = (5/6)
    * Ex: new Fraction(20, 10).mod().equals(0) ? "is Integer"
    **/
-  "mod": function (a, b) {
+  mod(a, b) {
 
     if (a === undefined) {
       return newFraction(this.s * this.n % this.d, C_ONE);
@@ -535,7 +535,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction(5,8).gcd(3,7) => 1/56
    */
-  "gcd": function (a, b) {
+  gcd(a, b) {
 
     parse(a, b);
 
@@ -550,7 +550,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction(5,8).lcm(3,7) => 15
    */
-  "lcm": function (a, b) {
+  lcm(a, b) {
 
     parse(a, b);
 
@@ -568,7 +568,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction([-3, 4]).inverse() => -4 / 3
    **/
-  "inverse": function () {
+  inverse() {
     return newFraction(this.s * this.d, this.n);
   },
 
@@ -577,7 +577,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction(-1,2).pow(-3) => -8
    */
-  "pow": function (a, b) {
+  pow(a, b) {
 
     parse(a, b);
 
@@ -642,7 +642,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction(27, 8).log(9, 4) => 3/2
    */
-  "log": function (a, b) {
+  log(a, b) {
 
     parse(a, b);
 
@@ -716,7 +716,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction(19.6).equals([98, 5]);
    **/
-  "equals": function (a, b) {
+  equals(a, b) {
 
     parse(a, b);
     return this.s * this.n * P.d === P.s * P.n * this.d;
@@ -727,7 +727,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction(19.6).lt([98, 5]);
    **/
-  "lt": function (a, b) {
+  lt(a, b) {
 
     parse(a, b);
     return this.s * this.n * P.d < P.s * P.n * this.d;
@@ -738,7 +738,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction(19.6).lt([98, 5]);
    **/
-  "lte": function (a, b) {
+  lte(a, b) {
 
     parse(a, b);
     return this.s * this.n * P.d <= P.s * P.n * this.d;
@@ -749,7 +749,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction(19.6).lt([98, 5]);
    **/
-  "gt": function (a, b) {
+  gt(a, b) {
 
     parse(a, b);
     return this.s * this.n * P.d > P.s * P.n * this.d;
@@ -760,7 +760,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction(19.6).lt([98, 5]);
    **/
-  "gte": function (a, b) {
+  gte(a, b) {
 
     parse(a, b);
     return this.s * this.n * P.d >= P.s * P.n * this.d;
@@ -774,7 +774,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction(19.6).compare([98, 5]);
    **/
-  "compare": function (a, b) {
+  compare(a, b) {
 
     parse(a, b);
     let t = this.s * this.n * P.d - P.s * P.n * this.d;
@@ -787,7 +787,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction('4.(3)').ceil() => (5 / 1)
    **/
-  "ceil": function (places) {
+  ceil(places) {
 
     places = C_TEN ** BigInt(places || 0);
 
@@ -801,7 +801,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction('4.(3)').floor() => (4 / 1)
    **/
-  "floor": function (places) {
+  floor(places) {
 
     places = C_TEN ** BigInt(places || 0);
 
@@ -815,7 +815,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction('4.(3)').round() => (4 / 1)
    **/
-  "round": function (places) {
+  round(places) {
 
     places = C_TEN ** BigInt(places || 0);
 
@@ -844,7 +844,7 @@ Fraction.prototype = {
     *
     * Ex: new Fraction('0.9').roundTo("1/8") => 7 / 8
     **/
-  "roundTo": function (a, b) {
+  roundTo(a, b) {
 
     /*
     k * x/y ≤ a/b < (k+1) * x/y
@@ -872,7 +872,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction(19.6).divisible(1.5);
    */
-  "divisible": function (a, b) {
+  divisible(a, b) {
 
     parse(a, b);
     if (P.n === C_ZERO) return false;
@@ -884,7 +884,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction("100.'91823'").valueOf() => 100.91823918239183
    **/
-  'valueOf': function () {
+  valueOf() {
     //if (this.n <= MAX_INTEGER && this.d <= MAX_INTEGER) {
     return Number(this.s * this.n) / Number(this.d);
     //}
@@ -895,7 +895,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction("100.'91823'").toString() => "100.(91823)"
    **/
-  'toString': function (dec = 15) {
+  toString(dec = 15) {
 
     let N = this.n;
     let D = this.d;
@@ -943,7 +943,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction("1.'3'").toFraction() => "4 1/3"
    **/
-  'toFraction': function (showMixed = false) {
+  toFraction(showMixed = false) {
 
     let n = this.n;
     let d = this.d;
@@ -971,7 +971,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction("1.'3'").toLatex() => "\frac{4}{3}"
    **/
-  'toLatex': function (showMixed = false) {
+  toLatex(showMixed = false) {
 
     let n = this.n;
     let d = this.d;
@@ -1000,7 +1000,7 @@ Fraction.prototype = {
    *
    * Ex: new Fraction("7/8").toContinued() => [0,1,7]
    */
-  'toContinued': function () {
+  toContinued() {
 
     let a = this.n;
     let b = this.d;
@@ -1015,7 +1015,7 @@ Fraction.prototype = {
     return res;
   },
 
-  "simplify": function (eps = 1e-3) {
+  simplify(eps = 1e-3) {
 
     // Continued fractions give best approximations for a max denominator,
     // generally outperforming mediants in denominator–accuracy trade-offs.
