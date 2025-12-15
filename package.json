@@ -63,7 +63,7 @@
     "endOfLine": "lf"
   },
   "scripts": {
-    "test": "uvu tests/fraction.test.js",
+    "test": "uvu tests",
     "format": "prettier -w ."
   },
   "dependencies": {

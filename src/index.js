@@ -68,10 +68,6 @@ function assign(n, s) {
   return n * s;
 }
 
-function ifloor(x) {
-  return typeof x === 'bigint' ? x : Math.floor(x);
-}
-
 // Creates a new Fraction internally without the need of the bulky constructor
 function newFraction(n, d) {
   if (d === C_ZERO) {
@@ -787,7 +783,7 @@ class Fraction {
     places = C_TEN ** BigInt(places || 0);
 
     return newFraction(
-      ifloor((this.s * places * this.n) / this.d) +
+      ((this.s * places * this.n) / this.d) +
         ((places * this.n) % this.d > C_ZERO && this.s >= C_ZERO
           ? C_ONE
           : C_ZERO),
@@ -804,7 +800,7 @@ class Fraction {
     places = C_TEN ** BigInt(places || 0);
 
     return newFraction(
-      ifloor((this.s * places * this.n) / this.d) -
+      ((this.s * places * this.n) / this.d) -
         ((places * this.n) % this.d > C_ZERO && this.s < C_ZERO
           ? C_ONE
           : C_ZERO),
@@ -823,20 +819,20 @@ class Fraction {
     /* Derivation:
 
     s >= 0:
-      round(n / d) = ifloor(n / d) + (n % d) / d >= 0.5 ? 1 : 0
-                   = ifloor(n / d) + 2(n % d) >= d ? 1 : 0
+      round(n / d) = (n / d) + (n % d) / d >= 0.5 ? 1 : 0
+                   = (n / d) + 2(n % d) >= d ? 1 : 0
     s < 0:
-      round(n / d) =-ifloor(n / d) - (n % d) / d > 0.5 ? 1 : 0
-                   =-ifloor(n / d) - 2(n % d) > d ? 1 : 0
+      round(n / d) =-(n / d) - (n % d) / d > 0.5 ? 1 : 0
+                   =-(n / d) - 2(n % d) > d ? 1 : 0
 
     =>:
 
-    round(s * n / d) = s * ifloor(n / d) + s * (C + 2(n % d) > d ? 1 : 0)
+    round(s * n / d) = s * (n / d) + s * (C + 2(n % d) > d ? 1 : 0)
         where C = s >= 0 ? 1 : 0, to fix the >= for the positve case.
     */
 
     return newFraction(
-      ifloor((this.s * places * this.n) / this.d) +
+      ((this.s * places * this.n) / this.d) +
         this.s *
           ((this.s >= C_ZERO ? C_ONE : C_ZERO) +
             C_TWO * ((places * this.n) % this.d) >
@@ -866,8 +862,8 @@ class Fraction {
     const d = this.d * P.n;
     const r = n % d;
 
-    // round(n / d) = ifloor(n / d) + 2(n % d) >= d ? 1 : 0
-    let k = ifloor(n / d);
+    // round(n / d) = (n / d) + 2(n % d) >= d ? 1 : 0
+    let k = (n / d);
     if (r + r >= d) {
       k++;
     }
@@ -911,7 +907,7 @@ class Fraction {
     let str = this.s < C_ZERO ? '-' : '';
 
     // Append integer part
-    str += ifloor(N / D);
+    str += (N / D);
 
     N %= D;
     N *= C_TEN;
@@ -920,20 +916,20 @@ class Fraction {
 
     if (cycLen) {
       for (let i = cycOff; i--; ) {
-        str += ifloor(N / D);
+        str += (N / D);
         N %= D;
         N *= C_TEN;
       }
       str += '(';
       for (let i = cycLen; i--; ) {
-        str += ifloor(N / D);
+        str += (N / D);
         N %= D;
         N *= C_TEN;
       }
       str += ')';
     } else {
       for (let i = dec; N && i--; ) {
-        str += ifloor(N / D);
+        str += (N / D);
         N %= D;
         N *= C_TEN;
       }
@@ -954,7 +950,7 @@ class Fraction {
     if (d === C_ONE) {
       str += n;
     } else {
-      const whole = ifloor(n / d);
+      const whole = (n / d);
       if (showMixed && whole > C_ZERO) {
         str += whole;
         str += ' ';
@@ -981,7 +977,7 @@ class Fraction {
     if (d === C_ONE) {
       str += n;
     } else {
-      const whole = ifloor(n / d);
+      const whole = (n / d);
       if (showMixed && whole > C_ZERO) {
         str += whole;
         n %= d;
@@ -1007,7 +1003,7 @@ class Fraction {
     const res = [];
 
     while (b) {
-      res.push(ifloor(a / b));
+      res.push((a / b));
       const t = a % b;
       a = b;
       b = t;
