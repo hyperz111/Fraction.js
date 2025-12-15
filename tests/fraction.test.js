@@ -1,6 +1,6 @@
-const { Fraction } = require('../src/index.js');
-const assert = require('assert');
-const uvu = require('uvu');
+import { Fraction } from '../src/index.js';
+import assert from 'node:assert';
+import * as uvu from 'uvu';
 
 function describe(name, callback) {
   const suite = uvu.suite(name);
@@ -8,17 +8,17 @@ function describe(name, callback) {
   suite.run();
 }
 
-var DivisionByZero = function () {
+function DivisionByZero() {
   return new Error('Division by Zero');
-};
-var InvalidParameter = function () {
+}
+function InvalidParameter() {
   return new Error('Invalid argument');
-};
-var NonIntegerParameter = function () {
+}
+function NonIntegerParameter() {
   return new Error('Parameters must be integer');
-};
+}
 
-var tests = [
+const tests = [
   {
     set: '',
     expectError: InvalidParameter(),
@@ -1863,13 +1863,13 @@ var tests = [
 ];
 
 describe('Fraction', function (it) {
-  for (var i = 0; i < tests.length; i++) {
+  for (let i = 0; i < tests.length; i++) {
     (function (i) {
-      var action;
+      let action;
 
       if (tests[i].fn) {
         action = function () {
-          var x = new Fraction(tests[i].set, tests[i].set2)[tests[i].fn](
+          let x = new Fraction(tests[i].set, tests[i].set2)[tests[i].fn](
             tests[i].param,
           );
           if (x === null) return 'null';
@@ -1877,7 +1877,7 @@ describe('Fraction', function (it) {
         };
       } else {
         action = function () {
-          var x = new Fraction(tests[i].set, tests[i].set2);
+          let x = new Fraction(tests[i].set, tests[i].set2);
           if (x === null) return 'null';
           return x.toString();
         };
@@ -1912,67 +1912,71 @@ describe('JSON', function (it) {
 
 describe('Arguments', function (it) {
   it('Should be possible to use different kind of params', function () {
+    let fraction;
+
     // String
-    var fraction = new Fraction('0.1');
+    fraction = new Fraction('0.1');
     assert.equal('1/10', fraction.n + '/' + fraction.d);
 
-    var fraction = new Fraction('6234/6460');
+    fraction = new Fraction('6234/6460');
     assert.equal('3117/3230', fraction.n + '/' + fraction.d);
 
     // Two params
-    var fraction = new Fraction(1, 2);
+    fraction = new Fraction(1, 2);
     assert.equal('1/2', fraction.n + '/' + fraction.d);
 
     // Object
-    var fraction = new Fraction({ n: 1, d: 3 });
+    fraction = new Fraction({ n: 1, d: 3 });
     assert.equal('1/3', fraction.n + '/' + fraction.d);
 
     // Array
-    var fraction = new Fraction([1, 4]);
+    fraction = new Fraction([1, 4]);
     assert.equal('1/4', fraction.n + '/' + fraction.d);
   });
 });
 
 describe('fractions', function (it) {
   it('Should pass 0.08 = 2/25', function () {
-    var fraction = new Fraction('0.08');
+    let fraction = new Fraction('0.08');
     assert.equal('2/25', fraction.n + '/' + fraction.d);
   });
 
   it('Should pass 0.200 = 1/5', function () {
-    var fraction = new Fraction('0.200');
+    let fraction = new Fraction('0.200');
     assert.equal('1/5', fraction.n + '/' + fraction.d);
   });
 
   it('Should pass 0.125 = 1/8', function () {
-    var fraction = new Fraction('0.125');
+    let fraction = new Fraction('0.125');
     assert.equal('1/8', fraction.n + '/' + fraction.d);
   });
 
   it('Should pass 8.36 = 209/25', function () {
-    var fraction = new Fraction(8.36);
+    let fraction = new Fraction(8.36);
     assert.equal('209/25', fraction.n + '/' + fraction.d);
   });
 });
 
 describe('constructors', function (it) {
   it('Should pass 0.08 = 2/25', function () {
-    var tmp = new Fraction({ d: 4, n: 2, s: -1 });
+    let tmp;
+
+    tmp = new Fraction({ d: 4, n: 2, s: -1 });
     assert.equal('-1/2', tmp.s * tmp.n + '/' + tmp.d);
 
-    var tmp = new Fraction(-88.3);
+    tmp = new Fraction(-88.3);
     assert.equal('-883/10', tmp.s * tmp.n + '/' + tmp.d);
 
-    var tmp = new Fraction(-88.3).clone();
+    tmp = new Fraction(-88.3).clone();
     assert.equal('-883/10', tmp.s * tmp.n + '/' + tmp.d);
 
-    var tmp = new Fraction("123.'3'");
+    tmp = new Fraction("123.'3'");
     assert.equal('370/3', tmp.s * tmp.n + '/' + tmp.d);
 
-    var tmp = new Fraction("123.'3'").clone();
+    tmp = new Fraction("123.'3'").clone();
     assert.equal('370/3', tmp.s * tmp.n + '/' + tmp.d);
 
-    var tmp = new Fraction([-1023461776, 334639305]);
+    tmp = new Fraction([-1023461776, 334639305]);
     tmp = tmp.add([4, 25]);
     assert.equal('-4849597436/1673196525', tmp.s * tmp.n + '/' + tmp.d);
   });
@@ -1980,101 +1984,101 @@ describe('constructors', function (it) {
 
 describe('Latex Output', function (it) {
   it("Should pass 123.'3' = \\frac{370}{3}", function () {
-    var tmp = new Fraction("123.'3'");
+    let tmp = new Fraction("123.'3'");
     assert.equal('\\frac{370}{3}', tmp.toLatex());
   });
 
   it("Should pass 1.'3' = \\frac{4}{3}", function () {
-    var tmp = new Fraction("1.'3'");
+    let tmp = new Fraction("1.'3'");
     assert.equal('\\frac{4}{3}', tmp.toLatex());
   });
 
   it('Should pass -1.0000000000 = -1', function () {
-    var tmp = new Fraction('-1.0000000000');
+    let tmp = new Fraction('-1.0000000000');
     assert.equal('-1', tmp.toLatex());
   });
 
   it('Should pass -0.0000000000 = 0', function () {
-    var tmp = new Fraction('-0.0000000000');
+    let tmp = new Fraction('-0.0000000000');
     assert.equal('0', tmp.toLatex());
   });
 });
 
 describe('Fraction Output', function (it) {
   it("Should pass 123.'3' = 123 1/3", function () {
-    var tmp = new Fraction("123.'3'");
+    let tmp = new Fraction("123.'3'");
     assert.equal('370/3', tmp.toFraction());
   });
 
   it("Should pass 1.'3' = 1 1/3", function () {
-    var tmp = new Fraction("1.'3'");
+    let tmp = new Fraction("1.'3'");
     assert.equal('4/3', tmp.toFraction());
   });
 
   it('Should pass -1.0000000000 = -1', function () {
-    var tmp = new Fraction('-1.0000000000');
+    let tmp = new Fraction('-1.0000000000');
     assert.equal('-1', tmp.toFraction());
   });
 
   it('Should pass -0.0000000000 = 0', function () {
-    var tmp = new Fraction('-0.0000000000');
+    let tmp = new Fraction('-0.0000000000');
     assert.equal('0', tmp.toFraction());
   });
 
   it('Should pass 1/-99/293 = -1/29007', function () {
-    var tmp = new Fraction(-99).inverse().div(293);
+    let tmp = new Fraction(-99).inverse().div(293);
     assert.equal('-1/29007', tmp.toFraction());
   });
 
   it('Should work with large calculations', function () {
-    var x = new Fraction(1123875);
-    var y = new Fraction(1238750184);
-    var z = new Fraction(1657134);
-    var r = new Fraction(77344464613500, 92063);
+    let x = new Fraction(1123875);
+    let y = new Fraction(1238750184);
+    let z = new Fraction(1657134);
+    let r = new Fraction(77344464613500, 92063);
     assert.equal(x.mul(y).div(z).toFraction(), r.toFraction());
   });
 });
 
 describe('Fraction toContinued', function (it) {
   it('Should pass 415/93', function () {
-    var tmp = new Fraction(415, 93);
+    let tmp = new Fraction(415, 93);
     assert.equal('4,2,6,7', tmp.toContinued().toString());
   });
 
   it('Should pass 0/2', function () {
-    var tmp = new Fraction(0, 2);
+    let tmp = new Fraction(0, 2);
     assert.equal('0', tmp.toContinued().toString());
   });
 
   it('Should pass 1/7', function () {
-    var tmp = new Fraction(1, 7);
+    let tmp = new Fraction(1, 7);
     assert.equal('0,7', tmp.toContinued().toString());
   });
 
   it('Should pass 23/88', function () {
-    var tmp = new Fraction('23/88');
+    let tmp = new Fraction('23/88');
     assert.equal('0,3,1,4,1,3', tmp.toContinued().toString());
   });
 
   it('Should pass 1/99', function () {
-    var tmp = new Fraction('1/99');
+    let tmp = new Fraction('1/99');
     assert.equal('0,99', tmp.toContinued().toString());
   });
 
   it('Should pass 1768/99', function () {
-    var tmp = new Fraction('1768/99');
+    let tmp = new Fraction('1768/99');
     assert.equal('17,1,6,14', tmp.toContinued().toString());
   });
 
   it('Should pass 1768/99', function () {
-    var tmp = new Fraction('7/8');
+    let tmp = new Fraction('7/8');
     assert.equal('0,1,7', tmp.toContinued().toString());
   });
 });
 
 describe('Fraction simplify', function (it) {
   it('Should pass 415/93', function () {
-    var tmp = new Fraction(415, 93);
+    let tmp = new Fraction(415, 93);
     assert.equal('9/2', tmp.simplify(0.1).toFraction());
     assert.equal('58/13', tmp.simplify(0.01).toFraction());
     assert.equal('415/93', tmp.simplify(0.0001).toFraction());
