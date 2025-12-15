@@ -35,9 +35,6 @@
  *
  */
 
-// Set Identity function to downgrade BigInt to Number if needed
-if (typeof BigInt === 'undefined') BigInt = function (n) { if (isNaN(n)) throw new Error(""); return n; };
-
 const C_ZERO = BigInt(0);
 const C_ONE = BigInt(1);
 const C_TWO = BigInt(2);
