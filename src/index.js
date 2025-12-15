@@ -104,9 +104,7 @@ function factorize(n) {
     return factors;
   }
 
-  const add = (p) => (
-    factors[p] = (factors[p] || C_ZERO) + C_ONE;
-  );
+  const add = (p) => (factors[p] = (factors[p] || C_ZERO) + C_ONE);
 
   while (n % C_TWO === C_ZERO) {
     add(C_TWO);
