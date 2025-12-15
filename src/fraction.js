@@ -35,12 +35,12 @@
  *
  */
 
-const C_ZERO = BigInt(0);
-const C_ONE = BigInt(1);
-const C_TWO = BigInt(2);
-const C_THREE = BigInt(3);
-const C_FIVE = BigInt(5);
-const C_TEN = BigInt(10);
+const C_ZERO = 0n;
+const C_ONE = 1n;
+const C_TWO = 2n;
+const C_THREE = 3n;
+const C_FIVE = 5n;
+const C_TEN = 10n;
 const MAX_INTEGER = BigInt(Number.MAX_SAFE_INTEGER);
 
 // Maximum search depth for cyclic rational numbers. 2000 should be more than enough.
@@ -55,12 +55,16 @@ const P = {
   "d": C_ONE
 };
 
+const DivisionByZero = new Error("Division by Zero");
+const InvalidParameter = new Error("Invalid argument");
+const NonIntegerParameter = new Error("Parameters must be integer");
+
 function assign(n, s) {
 
   try {
     n = BigInt(n);
   } catch (e) {
-    throw InvalidParameter();
+    throw InvalidParameter;
   }
   return n * s;
 }
@@ -73,7 +77,7 @@ function ifloor(x) {
 function newFraction(n, d) {
 
   if (d === C_ZERO) {
-    throw DivisionByZero();
+    throw DivisionByZero;
   }
 
   const f = Object.create(Fraction.prototype);
@@ -125,9 +129,9 @@ const parse = function (p1, p2) {
     if (typeof p1 === "bigint") {
       n = p1;
     } else if (isNaN(p1)) {
-      throw InvalidParameter();
+      throw InvalidParameter;
     } else if (p1 % 1 !== 0) {
-      throw NonIntegerParameter();
+      throw NonIntegerParameter;
     } else {
       n = BigInt(p1);
     }
@@ -135,9 +139,9 @@ const parse = function (p1, p2) {
     if (typeof p2 === "bigint") {
       d = p2;
     } else if (isNaN(p2)) {
-      throw InvalidParameter();
+      throw InvalidParameter;
     } else if (p2 % 1 !== 0) {
-      throw NonIntegerParameter();
+      throw NonIntegerParameter;
     } else {
       d = BigInt(p2);
     }
@@ -157,13 +161,13 @@ const parse = function (p1, p2) {
     } else if (typeof p1 === "bigint") {
       n = p1;
     } else {
-      throw InvalidParameter();
+      throw InvalidParameter;
     }
     s = n * d;
   } else if (typeof p1 === "number") {
 
     if (isNaN(p1)) {
-      throw InvalidParameter();
+      throw InvalidParameter;
     }
 
     if (p1 < 0) {
@@ -237,7 +241,7 @@ const parse = function (p1, p2) {
     let match = p1.replace(/_/g, '').match(/\d+|./g);
 
     if (match === null)
-      throw InvalidParameter();
+      throw InvalidParameter;
 
     if (match[ndx] === '-') {// Check for minus sign at the beginning
       s = -C_ONE;
@@ -285,7 +289,7 @@ const parse = function (p1, p2) {
       s = /* void */
         n = x + d * v + z * w;
     } else {
-      throw InvalidParameter();
+      throw InvalidParameter;
     }
 
   } else if (typeof p1 === "bigint") {
@@ -293,11 +297,11 @@ const parse = function (p1, p2) {
     s = p1;
     d = C_ONE;
   } else {
-    throw InvalidParameter();
+    throw InvalidParameter;
   }
 
   if (d === C_ZERO) {
-    throw DivisionByZero();
+    throw DivisionByZero;
   }
 
   P.s = s < C_ZERO ? -C_ONE : C_ONE;
@@ -498,7 +502,7 @@ class Fraction {
 
     parse(a, b);
     if (C_ZERO === P.n * this.d) {
-      throw DivisionByZero();
+      throw DivisionByZero;
     }
 
     /**
@@ -1014,7 +1018,3 @@ class Fraction {
     return this;
   }
 }
-
-const DivisionByZero = function () { return new Error("Division by Zero"); };
-const InvalidParameter = function () { return new Error("Invalid argument"); };
-const NonIntegerParameter = function () { return new Error("Parameters must be integer"); };
