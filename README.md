@@ -1,3 +1,33 @@
+## NOTE!!
+
+This is a fork from original [`fraction.js`](https://github.com/rawify/Fraction.js) with some BREAKING changes.
+If this is merged to original repo, i will deprecate this fork.
+
+1. Now this is just provide "named export" with name `Fraction`. To switch to this fork:
+
+   ```diff
+   // If you in ESM
+   - import Fraction from "fraction.js";
+   + import { Fraction } from "@hyperz111/fraction.js";
+
+   // If you in CommonJS
+   - const Fraction = require("fraction.js");
+   + const { Fraction } = require("@hyperz111/fraction.js");
+   ```
+
+2. Now you must use `new` keyword explicitly to make `Fraction` instance.
+   ```diff
+   - Fraction(10)
+   + new Fraction(10)
+   ```
+3. Two arguments type is REMOVED, use array instead. If you see "two arguments" usage in this README, ignore it & replace with array.
+   ```diff
+   - new Fraction(10, 5)
+   + new Fraction([10, 5])
+   ```
+4. Don't provide UMD version.
+5. Minimum Node.js version is `10.8`
+
 # Fraction.js - ℚ in JavaScript
 
 [![NPM Package](https://img.shields.io/npm/v/fraction.js.svg?style=flat)](https://npmjs.org/package/fraction.js 'View this project on npm')
@@ -46,7 +76,7 @@ As native `BigInt` support in JavaScript becomes more common, libraries like _Fr
 A simple example of using _Fraction.js_ might look like this:
 
 ```javascript
-var f = new Fraction("9.4'31'"); // 9.4313131313131...
+let f = new Fraction("9.4'31'"); // 9.4313131313131...
 f.mul([-4, 3]).mod("4.'8'"); // 4.88888888888888...
 ```
 
@@ -81,19 +111,19 @@ Here's a straightforward example of using _Fraction.js_ to calculate probabiliti
 #### P({3}):
 
 ```javascript
-var p = new Fraction([3].length, 6).toString(); // "0.1(6)"
+let p = new Fraction([3].length, 6).toString(); // "0.1(6)"
 ```
 
 #### P({1, 4}):
 
 ```javascript
-var p = new Fraction([1, 4].length, 6).toString(); // "0.(3)"
+let p = new Fraction([1, 4].length, 6).toString(); // "0.(3)"
 ```
 
 #### P({2, 4, 6}):
 
 ```javascript
-var p = new Fraction([2, 4, 6].length, 6).toString(); // "0.5"
+let p = new Fraction([2, 4, 6].length, 6).toString(); // "0.5"
 ```
 
 ### Convert degrees/minutes/seconds to precise rational representation:
@@ -101,9 +131,9 @@ var p = new Fraction([2, 4, 6].length, 6).toString(); // "0.5"
 57+45/60+17/3600
 
 ```javascript
-var deg = 57; // 57°
-var min = 45; // 45 Minutes
-var sec = 17; // 17 Seconds
+let deg = 57; // 57°
+let min = 45; // 45 Minutes
+let sec = 17; // 17 Seconds
 
 new Fraction(deg).add(min, 60).add(sec, 3600).toString(); // -> 57.7547(2)
 ```
@@ -115,13 +145,13 @@ To approximate a number like _sqrt(5) - 2_ with a numerator and denominator, you
 Then the following algorithm will generate the rational number besides the binary representation.
 
 ```javascript
-var x = '/',
+let x = '/',
   s = '';
 
-var a = new Fraction(0),
+let a = new Fraction(0),
   b = new Fraction(1);
-for (var n = 0; n <= 10; n++) {
-  var c = a.add(b).div(2);
+for (let n = 0; n <= 10; n++) {
+  let c = a.add(b).div(2);
 
   console.log(n + '\t' + a + '\t' + b + '\t' + c + '\t' + x);
 
@@ -161,7 +191,7 @@ I published another example on how to approximate PI with fraction.js on my [blo
 ### Get the exact fractional part of a number
 
 ```javascript
-var f = new Fraction('-6.(3416)');
+let f = new Fraction('-6.(3416)');
 console.log(f.mod(1).abs().toFraction()); // = 3416/9999
 ```
 
@@ -170,8 +200,8 @@ console.log(f.mod(1).abs().toFraction()); // = 3416/9999
 The behaviour on negative congruences is different to most modulo implementations in computer science. Even the _mod()_ function of Fraction.js behaves in the typical way. To solve the problem of having the mathematical correct modulo with Fraction.js you could come up with this:
 
 ```javascript
-var a = -1;
-var b = 10.99;
+let a = -1;
+let b = 10.99;
 
 console.log(new Fraction(a).mod(b)); // Not correct, usual Modulo
 
@@ -240,7 +270,7 @@ _Fraction.js_ can easily handle repeating decimal places. For example _1/3_ is _
 Assume you want to divide 123.32 / 33.6(567). [WolframAlpha](http://www.wolframalpha.com/input/?i=123.32+%2F+%2812453%2F370%29) states that you'll get a period of 1776 digits. _Fraction.js_ comes to the same result. Give it a try:
 
 ```javascript
-var f = new Fraction('123.32');
+let f = new Fraction('123.32');
 console.log('Bam: ' + f.div('33.6(567)'));
 ```
 
@@ -248,17 +278,17 @@ To automatically make a number like "0.123123123" to something more Fraction.js 
 
 ```javascript
 function formatDecimal(str) {
-  var comma, pre, offset, pad, times, repeat;
+  let comma, pre, offset, pad, times, repeat;
 
   if (-1 === (comma = str.indexOf('.'))) return str;
 
   pre = str.substr(0, comma + 1);
   str = str.substr(comma + 1);
 
-  for (var i = 0; i < str.length; i++) {
+  for (let i = 0; i < str.length; i++) {
     offset = str.substr(0, i);
 
-    for (var j = 0; j < 5; j++) {
+    for (let j = 0; j < 5; j++) {
       pad = str.substr(i, j + 1);
 
       times = Math.ceil((str.length - offset.length) / pad.length);
@@ -273,7 +303,7 @@ function formatDecimal(str) {
   return null;
 }
 
-var f,
+let f,
   x = formatDecimal('13.0123123123'); // = 13.0(123)
 if (x !== null) {
   f = new Fraction(x);
@@ -285,7 +315,7 @@ if (x !== null) {
 The Fraction object allows direct access to the numerator, denominator and sign attributes. It is ensured that only the sign-attribute holds sign information so that a sign comparison is only necessary against this attribute.
 
 ```javascript
-var f = new Fraction('-1/2');
+let f = new Fraction('-1/2');
 console.log(f.n); // Numerator: 1
 console.log(f.d); // Denominator: 2
 console.log(f.s); // Sign: -1
@@ -426,8 +456,8 @@ The optional boolean parameter indicates if you want to showa mixed fraction. "1
 Gets an array of the fraction represented as a continued fraction. The first element always contains the whole part.
 
 ```javascript
-var f = new Fraction('88/33');
-var c = f.toContinued(); // [2, 1, 2]
+let f = new Fraction('88/33');
+let c = f.toContinued(); // [2, 1, 2]
 ```
 
 ### Fraction clone()
@@ -465,7 +495,7 @@ Include the `fraction.min.js` file in your project:
 ```html
 <script src="path/to/fraction.min.js"></script>
 <script>
-  var x = new Fraction('13/4');
+  let x = new Fraction('13/4');
 </script>
 ```
 

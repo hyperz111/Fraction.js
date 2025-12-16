@@ -7,11 +7,11 @@ const now = new Date();
 const banner = `
 /**
  * @license ${pkg.name} v${pkg.version} ${now.toLocaleDateString('en')}
- * https://raw.org/article/rational-numbers-in-javascript/
+ * ${pkg.homepage}
  *
  * Copyright (c) ${now.getFullYear()}, ${pkg.author.name} (${pkg.author.url})
  * Licensed under the ${pkg.license} license.
- **/
+ */
 `.trim();
 
 export default defineConfig({

@@ -1,6 +1,5 @@
 {
-  "name": "fraction.js",
-  "title": "Fraction.js",
+  "name": "@hyperz111/fraction.js",
   "version": "5.3.4",
   "description": "The RAW rational numbers library",
   "homepage": "https://raw.org/article/rational-numbers-in-javascript/",
@@ -47,9 +46,12 @@
     "email": "robert@raw.org",
     "url": "https://raw.org/"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MIT",
   "engines": {
-    "node": ">=12"
+    "node": ">=10.8"
   },
   "files": [
     "dist"
@@ -61,17 +63,16 @@
     "endOfLine": "lf"
   },
   "scripts": {
+    "prepublishOnly": "npm run build",
     "test": "uvu tests",
     "build": "rollup -c",
     "format": "prettier -w ."
   },
-  "dependencies": {
-    "prettier": "^3.7.4",
-    "uvu": "^0.5.6"
-  },
   "devDependencies": {
     "@rollup/plugin-terser": "^0.4.4",
+    "prettier": "^3.7.4",
     "rollup": "^4.53.4",
-    "rollup-plugin-copy": "^3.5.0"
+    "rollup-plugin-copy": "^3.5.0",
+    "uvu": "^0.5.6"
   }
 }
