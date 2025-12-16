@@ -1,6 +1,6 @@
 ## NOTE!!
 
-This is a fork from original [`fraction.js`](https://github.com/rawify/Fraction.js) with some BREAKING changes.
+This is an UNRELEASED fork from original [`fraction.js`](https://github.com/rawify/Fraction.js) with some BREAKING changes.
 If this is merged to original repo, i will deprecate this fork.
 
 1. Now this is just provide "named export" with name `Fraction`. To switch to this fork:
@@ -8,11 +8,11 @@ If this is merged to original repo, i will deprecate this fork.
    ```diff
    // If you in ESM
    - import Fraction from "fraction.js";
-   + import { Fraction } from "@hyperz111/fraction.js";
+   + import { Fraction } from "fraction.js";
 
    // If you in CommonJS
    - const Fraction = require("fraction.js");
-   + const { Fraction } = require("@hyperz111/fraction.js");
+   + const { Fraction } = require("fraction.js");
    ```
 
 2. Now you must use `new` keyword explicitly to make `Fraction` instance.

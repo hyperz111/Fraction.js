@@ -1,6 +1,6 @@
 {
-  "name": "@hyperz111/fraction.js",
-  "version": "6.0.0-fork.0",
+  "name": "fraction.js",
+  "version": "5.3.4",
   "description": "The RAW rational numbers library",
   "homepage": "https://raw.org/article/rational-numbers-in-javascript/",
   "bugs": "https://github.com/rawify/Fraction.js/issues",
@@ -22,7 +22,6 @@
     "denominator",
     "simplification"
   ],
-  "private": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -45,9 +44,6 @@
     "name": "Robert Eisele",
     "email": "robert@raw.org",
     "url": "https://raw.org/"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "license": "MIT",
   "engines": {
