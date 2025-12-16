@@ -15,7 +15,9 @@ function InvalidParameter() {
   return new Error('Invalid argument');
 }
 function NonIntegerParameter(int) {
-  return new RangeError(`The number ${int} cannot be converted to a BigInt because it is not an integer`);
+  return new RangeError(
+    `The number ${int} cannot be converted to a BigInt because it is not an integer`,
+  );
 }
 
 const tests = [
@@ -1866,9 +1868,7 @@ describe('Fraction', function (it) {
 
       if (tests[i].fn) {
         action = function () {
-          let x = new Fraction(tests[i].set)[tests[i].fn](
-            tests[i].param,
-          );
+          let x = new Fraction(tests[i].set)[tests[i].fn](tests[i].param);
           if (x === null) return 'null';
           return x.toString();
         };

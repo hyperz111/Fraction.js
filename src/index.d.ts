@@ -17,13 +17,7 @@ export type FractionInput =
   | [number | bigint | string, number | bigint | string]
   | NumeratorDenominator;
 
-/**
- * Function signature for Fraction operations like add, sub, mul, etc.
- */
-export type FractionParam = {
-  (numerator: number | bigint, denominator: number | bigint): Fraction;
-  (num: FractionInput): Fraction;
-};
+type FractionParam = (num: FractionInput) => Fraction;
 
 /**
  * This class offers the possibility to calculate fractions.
@@ -64,9 +58,7 @@ declare class Fraction {
    */
   d: bigint;
 
-  constructor();
-  constructor(num: FractionInput);
-  constructor(numerator: number | bigint, denominator: number | bigint);
+  constructor(num?: FractionInput);
 
   /**
    * Calculates the absolute value
