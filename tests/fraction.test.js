@@ -14,8 +14,8 @@ function DivisionByZero() {
 function InvalidParameter() {
   return new Error('Invalid argument');
 }
-function NonIntegerParameter() {
-  return new Error('Parameters must be integer');
+function NonIntegerParameter(int) {
+  return new RangeError(`The number ${int} cannot be converted to a BigInt because it is not an integer`);
 }
 
 const tests = [
@@ -213,8 +213,7 @@ const tests = [
     expect: '0.(3)',
   },
   {
-    set: 1n,
-    set2: 3n,
+    set: [1n, 3n],
     expect: '0.(3)',
   },
   {
@@ -1755,19 +1754,17 @@ const tests = [
   },
   {
     label: '12 / 4.3',
-    set: 12,
-    set2: 4.3,
+    set: [12, 4.3],
     fn: 'toString',
     param: null,
-    expectError: NonIntegerParameter(),
+    expectError: NonIntegerParameter(4.3),
   },
   {
     label: '12.5 / 4',
-    set: 12.5,
-    set2: 4,
+    set: [12.5, 4],
     fn: 'toString',
     param: null,
-    expectError: NonIntegerParameter(),
+    expectError: NonIntegerParameter(12.5),
   },
   {
     label: '0.9 round to multiple of 1/8',
@@ -1869,7 +1866,7 @@ describe('Fraction', function (it) {
 
       if (tests[i].fn) {
         action = function () {
-          let x = new Fraction(tests[i].set, tests[i].set2)[tests[i].fn](
+          let x = new Fraction(tests[i].set)[tests[i].fn](
             tests[i].param,
           );
           if (x === null) return 'null';
@@ -1877,7 +1874,7 @@ describe('Fraction', function (it) {
         };
       } else {
         action = function () {
-          let x = new Fraction(tests[i].set, tests[i].set2);
+          let x = new Fraction(tests[i].set);
           if (x === null) return 'null';
           return x.toString();
         };
@@ -1920,10 +1917,6 @@ describe('Arguments', function (it) {
 
     fraction = new Fraction('6234/6460');
     assert.equal('3117/3230', fraction.n + '/' + fraction.d);
-
-    // Two params
-    fraction = new Fraction(1, 2);
-    assert.equal('1/2', fraction.n + '/' + fraction.d);
 
     // Object
     fraction = new Fraction({ n: 1, d: 3 });
@@ -2034,24 +2027,24 @@ describe('Fraction Output', function (it) {
     let x = new Fraction(1123875);
     let y = new Fraction(1238750184);
     let z = new Fraction(1657134);
-    let r = new Fraction(77344464613500, 92063);
+    let r = new Fraction([77344464613500, 92063]);
     assert.equal(x.mul(y).div(z).toFraction(), r.toFraction());
   });
 });
 
 describe('Fraction toContinued', function (it) {
   it('Should pass 415/93', function () {
-    let tmp = new Fraction(415, 93);
+    let tmp = new Fraction([415, 93]);
     assert.equal('4,2,6,7', tmp.toContinued().toString());
   });
 
   it('Should pass 0/2', function () {
-    let tmp = new Fraction(0, 2);
+    let tmp = new Fraction([0, 2]);
     assert.equal('0', tmp.toContinued().toString());
   });
 
   it('Should pass 1/7', function () {
-    let tmp = new Fraction(1, 7);
+    let tmp = new Fraction([1, 7]);
     assert.equal('0,7', tmp.toContinued().toString());
   });
 
@@ -2078,7 +2071,7 @@ describe('Fraction toContinued', function (it) {
 
 describe('Fraction simplify', function (it) {
   it('Should pass 415/93', function () {
-    let tmp = new Fraction(415, 93);
+    let tmp = new Fraction([415, 93]);
     assert.equal('9/2', tmp.simplify(0.1).toFraction());
     assert.equal('58/13', tmp.simplify(0.01).toFraction());
     assert.equal('415/93', tmp.simplify(0.0001).toFraction());

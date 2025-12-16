@@ -20,7 +20,6 @@ const P = {
 
 const DivisionByZero = new Error('Division by Zero');
 const InvalidParameter = new Error('Invalid argument');
-const NonIntegerParameter = new Error('Parameters must be integer');
 
 function assign(n, s) {
   try {
@@ -96,7 +95,7 @@ function factorize(n) {
   return factors;
 }
 
-function parse(p1, p2) {
+function parse(p1) {
   let n = C_ZERO,
     d = C_ONE,
     s = C_ONE;
@@ -104,30 +103,6 @@ function parse(p1, p2) {
   if (p1 === undefined || p1 === null) {
     // No argument
     /* void */
-  } else if (p2 !== undefined) {
-    // Two arguments
-
-    if (typeof p1 === 'bigint') {
-      n = p1;
-    } else if (isNaN(p1)) {
-      throw InvalidParameter;
-    } else if (p1 % 1 !== 0) {
-      throw NonIntegerParameter;
-    } else {
-      n = BigInt(p1);
-    }
-
-    if (typeof p2 === 'bigint') {
-      d = p2;
-    } else if (isNaN(p2)) {
-      throw InvalidParameter;
-    } else if (p2 % 1 !== 0) {
-      throw NonIntegerParameter;
-    } else {
-      d = BigInt(p2);
-    }
-
-    s = n * d;
   } else if (typeof p1 === 'object') {
     if ('d' in p1 && 'n' in p1) {
       n = BigInt(p1.n);
@@ -373,8 +348,8 @@ class Fraction {
   n = C_ZERO;
   d = C_ONE;
 
-  constructor(a, b) {
-    parse(a, b);
+  constructor(a) {
+    parse(a);
 
     a = gcd(P.d, P.n); // Abuse a
     this.s = P.s;
@@ -405,8 +380,8 @@ class Fraction {
    *
    * Ex: new Fraction({n: 2, d: 3}).add("14.9") => 467 / 30
    **/
-  add(a, b) {
-    parse(a, b);
+  add(a) {
+    parse(a);
 
     return newFraction(
       this.s * this.n * P.d + P.s * this.d * P.n,
@@ -419,8 +394,8 @@ class Fraction {
    *
    * Ex: new Fraction({n: 2, d: 3}).add("14.9") => -427 / 30
    **/
-  sub(a, b) {
-    parse(a, b);
+  sub(a) {
+    parse(a);
 
     return newFraction(
       this.s * this.n * P.d - P.s * this.d * P.n,
@@ -433,8 +408,8 @@ class Fraction {
    *
    * Ex: new Fraction("-17.(345)").mul(3) => 5776 / 111
    **/
-  mul(a, b) {
-    parse(a, b);
+  mul(a) {
+    parse(a);
 
     return newFraction(this.s * P.s * this.n * P.n, this.d * P.d);
   }
@@ -444,8 +419,8 @@ class Fraction {
    *
    * Ex: new Fraction("-17.(345)").inverse().div(3)
    **/
-  div(a, b) {
-    parse(a, b);
+  div(a) {
+    parse(a);
 
     return newFraction(this.s * P.s * this.n * P.d, this.d * P.n);
   }
@@ -465,12 +440,12 @@ class Fraction {
    * Ex: new Fraction('4.(3)').mod([7, 8]) => (13/3) % (7/8) = (5/6)
    * Ex: new Fraction(20, 10).mod().equals(0) ? "is Integer"
    **/
-  mod(a, b) {
+  mod(a) {
     if (a === undefined) {
       return newFraction((this.s * this.n) % this.d, C_ONE);
     }
 
-    parse(a, b);
+    parse(a);
     if (C_ZERO === P.n * this.d) {
       throw DivisionByZero;
     }
@@ -497,8 +472,8 @@ class Fraction {
    *
    * Ex: new Fraction(5,8).gcd(3,7) => 1/56
    */
-  gcd(a, b) {
-    parse(a, b);
+  gcd(a) {
+    parse(a);
 
     // https://raw.org/book/analysis/rational-numbers/
     // gcd(a / b, c / d) = gcd(a, c) / lcm(b, d)
@@ -511,8 +486,8 @@ class Fraction {
    *
    * Ex: new Fraction(5,8).lcm(3,7) => 15
    */
-  lcm(a, b) {
-    parse(a, b);
+  lcm(a) {
+    parse(a);
 
     // https://raw.org/book/analysis/rational-numbers/
     // lcm(a / b, c / d) = lcm(a, c) / gcd(b, d)
@@ -537,8 +512,8 @@ class Fraction {
    *
    * Ex: new Fraction(-1,2).pow(-3) => -8
    */
-  pow(a, b) {
-    parse(a, b);
+  pow(a) {
+    parse(a);
 
     // Trivial case when exp is an integer
 
@@ -600,8 +575,8 @@ class Fraction {
    *
    * Ex: new Fraction(27, 8).log(9, 4) => 3/2
    */
-  log(a, b) {
-    parse(a, b);
+  log(a) {
+    parse(a);
 
     if (this.s <= C_ZERO || P.s <= C_ZERO) return null;
 
@@ -670,8 +645,8 @@ class Fraction {
    *
    * Ex: new Fraction(19.6).equals([98, 5]);
    **/
-  equals(a, b) {
-    parse(a, b);
+  equals(a) {
+    parse(a);
 
     return this.s * this.n * P.d === P.s * P.n * this.d;
   }
@@ -681,8 +656,8 @@ class Fraction {
    *
    * Ex: new Fraction(19.6).lt([98, 5]);
    **/
-  lt(a, b) {
-    parse(a, b);
+  lt(a) {
+    parse(a);
 
     return this.s * this.n * P.d < P.s * P.n * this.d;
   }
@@ -692,8 +667,8 @@ class Fraction {
    *
    * Ex: new Fraction(19.6).lt([98, 5]);
    **/
-  lte(a, b) {
-    parse(a, b);
+  lte(a) {
+    parse(a);
 
     return this.s * this.n * P.d <= P.s * P.n * this.d;
   }
@@ -703,8 +678,8 @@ class Fraction {
    *
    * Ex: new Fraction(19.6).lt([98, 5]);
    **/
-  gt(a, b) {
-    parse(a, b);
+  gt(a) {
+    parse(a);
 
     return this.s * this.n * P.d > P.s * P.n * this.d;
   }
@@ -714,8 +689,8 @@ class Fraction {
    *
    * Ex: new Fraction(19.6).lt([98, 5]);
    **/
-  gte(a, b) {
-    parse(a, b);
+  gte(a) {
+    parse(a);
 
     return this.s * this.n * P.d >= P.s * P.n * this.d;
   }
@@ -728,8 +703,8 @@ class Fraction {
    *
    * Ex: new Fraction(19.6).compare([98, 5]);
    **/
-  compare(a, b) {
-    parse(a, b);
+  compare(a) {
+    parse(a);
 
     let t = this.s * this.n * P.d - P.s * P.n * this.d;
 
@@ -810,7 +785,7 @@ class Fraction {
    *
    * Ex: new Fraction('0.9').roundTo("1/8") => 7 / 8
    **/
-  roundTo(a, b) {
+  roundTo(a) {
     /*
     k * x/y ≤ a/b < (k+1) * x/y
     ⇔ k ≤ a/b / (x/y) < (k+1)
@@ -818,7 +793,7 @@ class Fraction {
     ⇔ k = floor((a * y) / (b * x))
     */
 
-    parse(a, b);
+    parse(a);
 
     const n = this.n * P.d;
     const d = this.d * P.n;
@@ -837,8 +812,8 @@ class Fraction {
    *
    * Ex: new Fraction(19.6).divisible(1.5);
    */
-  divisible(a, b) {
-    parse(a, b);
+  divisible(a) {
+    parse(a);
     if (P.n === C_ZERO) return false;
     return (this.n * P.d) % (P.n * this.d) === C_ZERO;
   }
