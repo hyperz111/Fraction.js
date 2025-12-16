@@ -66,11 +66,13 @@
     "prepublishOnly": "npm run build",
     "test": "uvu tests",
     "build": "rollup -c",
+    "lint:publish": "publint",
     "format": "prettier -w ."
   },
   "devDependencies": {
     "@rollup/plugin-terser": "^0.4.4",
     "prettier": "^3.7.4",
+    "publint": "^0.3.16",
     "rollup": "^4.53.4",
     "rollup-plugin-copy": "^3.5.0",
     "uvu": "^0.5.6"
