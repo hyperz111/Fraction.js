@@ -1,4 +1,4 @@
-const { Fraction } = require('../src/index.js');
+const { Fraction } = require('../lib/index.js');
 const assert = require('assert');
 const uvu = require('uvu');
 

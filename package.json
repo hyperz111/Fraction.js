@@ -24,8 +24,8 @@
   ],
   "exports": {
     ".": {
-      "types": "./src/index.d.ts",
-      "default": "./src/index.js"
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
     },
     "./package.json": "./package.json"
   },
@@ -48,7 +48,7 @@
     "node": ">=10.8"
   },
   "files": [
-    "src"
+    "lib"
   ],
   "prettier": {
     "semi": true,
