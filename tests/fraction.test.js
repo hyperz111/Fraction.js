@@ -1,6 +1,6 @@
-import { Fraction } from '../src/index.js';
-import assert from 'node:assert';
-import * as uvu from 'uvu';
+const { Fraction } = require('../src/index.js');
+const assert = require('assert');
+const uvu = require('uvu');
 
 function describe(name, callback) {
   const suite = uvu.suite(name);

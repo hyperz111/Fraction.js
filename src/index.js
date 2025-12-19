@@ -974,4 +974,4 @@ class Fraction {
   }
 }
 
-export { Fraction };
+exports.Fraction = Fraction;
