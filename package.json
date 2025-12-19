@@ -30,6 +30,7 @@
     "./package.json": "./package.json"
   },
   "sideEffects": false,
+  "type": "commonjs",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/rawify/Fraction.js.git"
