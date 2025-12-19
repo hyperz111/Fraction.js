@@ -111,19 +111,19 @@ Here's a straightforward example of using _Fraction.js_ to calculate probabiliti
 #### P({3}):
 
 ```javascript
-let p = new Fraction([3].length, 6).toString(); // "0.1(6)"
+let p = new Fraction([[3].length, 6]).toString(); // "0.1(6)"
 ```
 
 #### P({1, 4}):
 
 ```javascript
-let p = new Fraction([1, 4].length, 6).toString(); // "0.(3)"
+let p = new Fraction([[1, 4].length, 6]).toString(); // "0.(3)"
 ```
 
 #### P({2, 4, 6}):
 
 ```javascript
-let p = new Fraction([2, 4, 6].length, 6).toString(); // "0.5"
+let p = new Fraction([[2, 4, 6].length, 6]).toString(); // "0.5"
 ```
 
 ### Convert degrees/minutes/seconds to precise rational representation:
@@ -135,7 +135,7 @@ let deg = 57; // 57°
 let min = 45; // 45 Minutes
 let sec = 17; // 17 Seconds
 
-new Fraction(deg).add(min, 60).add(sec, 3600).toString(); // -> 57.7547(2)
+new Fraction(deg).add([min, 60]).add([sec, 3600]).toString(); // -> 57.7547(2)
 ```
 
 ### Rational approximation of irrational numbers
@@ -223,7 +223,6 @@ You can pass either Arrays, Objects, Integers, Doubles or Strings.
 ### Arrays / Objects
 
 ```javascript
-new Fraction(numerator, denominator);
 new Fraction([numerator, denominator]);
 new Fraction({ n: numerator, d: denominator });
 ```
@@ -255,12 +254,6 @@ new Fraction("123.'456'"); // Note the quotes, see below!
 new Fraction('123.(456)'); // Note the brackets, see below!
 new Fraction("123.45'6'"); // Note the quotes, see below!
 new Fraction('123.45(6)'); // Note the brackets, see below!
-```
-
-### Two arguments
-
-```javascript
-new Fraction(3, 2); // 3/2 = 1.5
 ```
 
 ### Repeating decimal places
@@ -316,106 +309,106 @@ The Fraction object allows direct access to the numerator, denominator and sign 
 
 ```javascript
 let f = new Fraction('-1/2');
-console.log(f.n); // Numerator: 1
-console.log(f.d); // Denominator: 2
-console.log(f.s); // Sign: -1
+console.log(f.n); // Numerator: 1n
+console.log(f.d); // Denominator: 2n
+console.log(f.s); // Sign: -1n
 ```
 
-## Functions
+## Methods
 
-### Fraction abs()
+### `abs(): Fraction`
 
 Returns the actual number without any sign information
 
-### Fraction neg()
+### `neg(): Fraction`
 
 Returns the actual number with flipped sign in order to get the additive inverse
 
-### Fraction add(n)
+### `add(n: FractionInput): Fraction`
 
 Returns the sum of the actual number and the parameter n
 
-### Fraction sub(n)
+### `sub(n: FractionInput): Fraction`
 
 Returns the difference of the actual number and the parameter n
 
-### Fraction mul(n)
+### `mul(n: FractionInput): Fraction`
 
 Returns the product of the actual number and the parameter n
 
-### Fraction div(n)
+### `div(n: FractionInput): Fraction`
 
 Returns the quotient of the actual number and the parameter n
 
-### Fraction pow(exp)
+### `pow(exp: FractionInput): Fraction`
 
 Returns the power of the actual number, raised to an possible rational exponent. If the result becomes non-rational the function returns `null`.
 
-### Fraction log(base)
+### `log(base: FractionInput): Fraction`
 
 Returns the logarithm of the actual number to a given rational base. If the result becomes non-rational the function returns `null`.
 
-### Fraction mod(n)
+### `mod(n: FractionInput): Fraction`
 
 Returns the modulus (rest of the division) of the actual object and n (this % n). It's a much more precise [fmod()](#fmod-impreciseness-circumvented) if you like. Please note that _mod()_ is just like the modulo operator of most programming languages. If you want a mathematical correct modulo, see [here](#mathematical-correct-modulo).
 
-### Fraction mod()
+### `mod(): Fraction`
 
 Returns the modulus (rest of the division) of the actual object (numerator mod denominator)
 
-### Fraction gcd(n)
+### `gcd(n: FractionInput): Fraction`
 
 Returns the fractional greatest common divisor
 
-### Fraction lcm(n)
+### `lcm(n: FractionInput): Fraction`
 
 Returns the fractional least common multiple
 
-### Fraction ceil([places=0-16])
+### `ceil(places?: number): Fraction`
 
 Returns the ceiling of a rational number with Math.ceil
 
-### Fraction floor([places=0-16])
+### `floor(places?: number): Fraction`
 
 Returns the floor of a rational number with Math.floor
 
-### Fraction round([places=0-16])
+### `round(places?: number): Fraction`
 
 Returns the rational number rounded with Math.round
 
-### Fraction roundTo(multiple)
+### `roundTo(multiple: FractionInput): Fraction`
 
 Rounds a fraction to the closest multiple of another fraction.
 
-### Fraction inverse()
+### `inverse(): Fraction`
 
 Returns the multiplicative inverse of the actual number (n / d becomes d / n) in order to get the reciprocal
 
-### Fraction simplify([eps=0.001])
+### `simplify(eps?: number): Fraction`
 
 Simplifies the rational number under a certain error threshold. Ex. `0.333` will be `1/3` with `eps=0.001`
 
-### boolean equals(n)
+### `equals(n: FractionInput): boolean`
 
 Check if two rational numbers are equal
 
-### boolean lt(n)
+### `lt(n: FractionInput): boolean`
 
 Check if this rational number is less than another
 
-### boolean lte(n)
+### `lte(n: FractionInput): boolean`
 
 Check if this rational number is less than or equal another
 
-### boolean gt(n)
+### `gt(n: FractionInput): boolean`
 
 Check if this rational number is greater than another
 
-### boolean gte(n)
+### `gte(n: FractionInput): boolean`
 
 Check if this rational number is greater than or equal another
 
-### int compare(n)
+### `compare(n: FractionInput): number`
 
 Compare two numbers.
 
@@ -425,7 +418,7 @@ result > 0: n is smaller than actual number
 result = 0: n is equal to the actual number
 ```
 
-### boolean divisible(n)
+### `divisible(n: FractionInput): boolean`
 
 Check if two numbers are divisible (n divides this)
 
@@ -433,34 +426,34 @@ Check if two numbers are divisible (n divides this)
 
 Returns a decimal representation of the fraction
 
-### String toString([decimalPlaces=15])
+### `toString(decimalPlaces?: number): string`
 
 Generates an exact string representation of the given object. For repeating decimal places, digits within repeating cycles are enclosed in parentheses, e.g., `1/3 = "0.(3)"`. For other numbers, the string will include up to the specified `decimalPlaces` significant digits, including any trailing zeros if truncation occurs. For example, `1/2` will be represented as `"0.5"`, without additional trailing zeros.
 
 **Note:** Since both `valueOf()` and `toString()` are provided, `toString()` will only be invoked implicitly when the object is used in a string context. For instance, when using the plus operator like `"123" + new Fraction`, `valueOf()` will be called first, as JavaScript attempts to combine primitives before concatenating them, with the string type taking precedence. However, `alert(new Fraction)` or `String(new Fraction)` will behave as expected. To ensure specific behavior, explicitly call either `toString()` or `valueOf()`.
 
-### String toLatex(showMixed=false)
+### `toLatex(showMixed?: boolean): string`
 
 Generates an exact LaTeX representation of the actual object. You can see a [live demo](https://raw.org/article/rational-numbers-in-javascript/) on my blog.
 
 The optional boolean parameter indicates if you want to show the a mixed fraction. "1 1/3" instead of "4/3"
 
-### String toFraction(showMixed=false)
+### `toFraction(showMixed?: boolean): string`
 
 Gets a string representation of the fraction
 
 The optional boolean parameter indicates if you want to showa mixed fraction. "1 1/3" instead of "4/3"
 
-### Array toContinued()
+### `toContinued(): bigint[]`
 
 Gets an array of the fraction represented as a continued fraction. The first element always contains the whole part.
 
 ```javascript
 let f = new Fraction('88/33');
-let c = f.toContinued(); // [2, 1, 2]
+let c = f.toContinued(); // [2n, 1n, 2n]
 ```
 
-### Fraction clone()
+### `clone(): Fraction`
 
 Creates a copy of the actual Fraction object
 
@@ -470,58 +463,48 @@ If a really hard error occurs (parsing error, division by zero), _Fraction.js_ t
 
 ## Installation
 
-You can install `Fraction.js` via npm:
+### npm:
 
 ```bash
 npm install fraction.js
 ```
 
-Or with yarn:
+### yarn:
 
 ```bash
 yarn add fraction.js
 ```
 
-Alternatively, download or clone the repository:
+### pnpm:
 
 ```bash
-git clone https://github.com/rawify/Fraction.js
+pnpm install fraction.js
 ```
 
 ## Usage
 
-Include the `fraction.min.js` file in your project:
-
-```html
-<script src="path/to/fraction.min.js"></script>
-<script>
-  let x = new Fraction('13/4');
-</script>
-```
-
-Or in a Node.js project:
+CommonJS:
 
 ```javascript
-const Fraction = require('fraction.js');
+const { Fraction } = require('fraction.js');
 ```
 
-or
+ESM:
 
 ```javascript
-import Fraction from 'fraction.js';
+import { Fraction } from 'fraction.js';
 ```
 
 ## Coding Style
 
 Like all my libraries, Fraction.js is written to minimize size after compression with Google Closure Compiler in advanced mode. The code style is optimized to maximize compressibility. If you extend the library, please preserve this style.
 
-## Building the library
+## Preparing the library
 
 After cloning the Git repository run:
 
 ```bash
 npm install
-npm run build
 ```
 
 ## Run a test
