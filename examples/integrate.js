@@ -5,7 +5,7 @@ https://raw.org/article/rational-numbers-in-javascript/
 Copyright (c) 2025, Robert Eisele (https://raw.org/)
 Licensed under the MIT license.
 */
-const Fraction = require('fraction.js');
+const { Fraction } = require('../lib/index.js');
 
 // NOTE: This is a nice example, but a stable version of this is served with Polynomial.js:
 // https://github.com/rawify/Polynomial.js

@@ -6,7 +6,7 @@ Copyright (c) 2025, Robert Eisele (https://raw.org/)
 Licensed under the MIT license.
 */
 
-var Fraction = require('fraction.js');
+const { Fraction } = require('../lib/index.js');
 
 function valueOfPi(val) {
   let minLen = Infinity,

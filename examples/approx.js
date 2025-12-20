@@ -6,7 +6,7 @@ Copyright (c) 2025, Robert Eisele (https://raw.org/)
 Licensed under the MIT license.
 */
 
-const Fraction = require('fraction.js');
+const { Fraction } = require('../lib/index.js');
 
 // Another rational approximation, not using Farey Sequences but Binary Search using the mediant
 function approximate(p, precision) {

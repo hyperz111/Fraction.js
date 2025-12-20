@@ -6,7 +6,7 @@ Copyright (c) 2025, Robert Eisele (https://raw.org/)
 Licensed under the MIT license.
 */
 
-const Fraction = require('fraction.js');
+const { Fraction } = require('../lib/index.js');
 
 function toFraction(frac) {
   const map = {
@@ -31,4 +31,4 @@ function toFraction(frac) {
   };
   return map[frac.n + ':' + frac.d] || frac.toFraction(false);
 }
-console.log(toFraction(Fraction(0.25))); // ¼
+console.log(toFraction(new Fraction(0.25))); // ¼

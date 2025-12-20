@@ -9,6 +9,8 @@ Licensed under the MIT license.
 // A double is basically a rational approximation itself already.
 // Here is a function to extract the double and return the most precise Fraction out of it, even if it is not the closest intended number.
 
+const { Fraction } = require('../lib/index.js');
+
 const _buf = new ArrayBuffer(8);
 const _view = new DataView(_buf);
 
