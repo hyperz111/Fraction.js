@@ -63,8 +63,12 @@
     "format": "prettier -w ."
   },
   "devDependencies": {
+    "clean-publish": "^6.0.1",
     "prettier": "^3.7.4",
     "publint": "^0.3.16",
     "uvu": "^0.5.6"
+  },
+  "clean-publish": {
+    "cleanDocs": true
   }
 }
