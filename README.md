@@ -1,4 +1,4 @@
-## NOTE!!
+# Fraction.js - ℚ in JavaScript
 
 This is an UNRELEASED fork from original [`fraction.js`](https://github.com/rawify/Fraction.js) with some BREAKING changes.
 If this is merged to original repo, i will deprecate this fork.
@@ -36,7 +36,7 @@ If this is merged to original repo, i will deprecate this fork.
 5. Don't provide UMD version.
 6. Minimum Node.js version is `10.8`
 
-# Fraction.js - ℚ in JavaScript
+---
 
 [![NPM Package](https://img.shields.io/npm/v/fraction.js.svg?style=flat)](https://npmjs.org/package/fraction.js 'View this project on npm')
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
@@ -56,6 +56,40 @@ Fraction(1).div(98).mul(98); // Returns 1
 ```
 
 _Fraction.js_ uses a `BigInt` representation for both the numerator and denominator, ensuring minimal performance overhead while maximizing accuracy. Its design is optimized for precision, making it an ideal choice as a foundational library for other math tools, such as [Polynomial.js](https://github.com/rawify/Polynomial.js) and [Math.js](https://github.com/josdejong/mathjs).
+
+## Installation
+
+### npm:
+
+```bash
+npm install fraction.js
+```
+
+### yarn:
+
+```bash
+yarn add fraction.js
+```
+
+### pnpm:
+
+```bash
+pnpm install fraction.js
+```
+
+## Usage
+
+CommonJS:
+
+```javascript
+const { Fraction } = require('fraction.js');
+```
+
+ESM:
+
+```javascript
+import { Fraction } from 'fraction.js';
+```
 
 ## Convert Decimal to Fraction
 
@@ -468,40 +502,6 @@ Creates a copy of the actual Fraction object
 ## Exceptions
 
 If a really hard error occurs (parsing error, division by zero), _Fraction.js_ throws exceptions! Please make sure you handle them correctly.
-
-## Installation
-
-### npm:
-
-```bash
-npm install fraction.js
-```
-
-### yarn:
-
-```bash
-yarn add fraction.js
-```
-
-### pnpm:
-
-```bash
-pnpm install fraction.js
-```
-
-## Usage
-
-CommonJS:
-
-```javascript
-const { Fraction } = require('fraction.js');
-```
-
-ESM:
-
-```javascript
-import { Fraction } from 'fraction.js';
-```
 
 ## Coding Style
 
