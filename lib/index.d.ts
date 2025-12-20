@@ -1,23 +1,16 @@
 /**
- * Interface representing a fraction with numerator and denominator.
- */
-export interface NumeratorDenominator {
-  n: number | bigint;
-  d: number | bigint;
-}
-
-/**
  * Type for handling multiple types of input for Fraction operations.
  */
-export type FractionInput =
+type FractionInput =
   | Fraction
   | number
   | bigint
   | string
   | [number | bigint | string, number | bigint | string]
-  | NumeratorDenominator;
-
-type FractionParam = (num: FractionInput) => Fraction;
+  | {
+      n: number | bigint;
+      d: number | bigint;
+    };
 
 /**
  * This class offers the possibility to calculate fractions.
@@ -86,7 +79,7 @@ declare class Fraction {
    * new Fraction({n: 2, d: 3}).add("14.9") //=> 467 / 30
    * ```
    **/
-  add: FractionParam;
+  add(num: FractionInput): Fraction;
   /**
    * Subtracts two rational numbers
    *
@@ -95,7 +88,7 @@ declare class Fraction {
    * new Fraction({n: 2, d: 3}).add("14.9") //=> -427 / 30
    * ```
    **/
-  sub: FractionParam;
+  sub(num: FractionInput): Fraction;
   /**
    * Multiplies two rational numbers
    *
@@ -104,7 +97,7 @@ declare class Fraction {
    * new Fraction("-17.(345)").mul(3) //=> 5776 / 111
    * ```
    **/
-  mul: FractionParam;
+  mul(num: FractionInput): Fraction;
   /**
    * Divides two rational numbers
    *
@@ -113,7 +106,7 @@ declare class Fraction {
    * new Fraction("-17.(345)").inverse().div(3)
    * ```
    **/
-  div: FractionParam;
+  div(num: FractionInput): Fraction;
   /**
    * Calculates the fraction to some integer exponent
    *
@@ -122,7 +115,7 @@ declare class Fraction {
    * new Fraction(-1,2).pow(-3) //=> -8
    * ```
    */
-  pow: FractionParam;
+  pow(num: FractionInput): Fraction;
   /**
    * Calculates the logarithm of a fraction to a given rational base
    *
@@ -131,7 +124,7 @@ declare class Fraction {
    * new Fraction(27, 8).log(9, 4) //=> 3/2
    * ```
    */
-  log: FractionParam;
+  log(num: FractionInput): Fraction;
   /**
    * Calculates the fractional gcd of two rational numbers
    *
@@ -140,7 +133,7 @@ declare class Fraction {
    * new Fraction(5,8).gcd(3,7) //=> 1/56
    * ```
    */
-  gcd: FractionParam;
+  gcd(num: FractionInput): Fraction;
   /**
    * Calculates the fractional lcm of two rational numbers
    *
@@ -149,7 +142,7 @@ declare class Fraction {
    * new Fraction(5,8).lcm(3,7) //=> 15
    * ```
    */
-  lcm: FractionParam;
+  lcm(num: FractionInput): Fraction;
   /**
    * Calculates the modulo of two rational numbers - a more precise fmod
    *
@@ -162,7 +155,7 @@ declare class Fraction {
    * new Fraction(20, 10).mod().equals(0) ? "is Integer"
    * ```
    **/
-  mod: FractionParam;
+  mod(num: FractionInput): Fraction;
   /**
    * Calculates the ceil of a rational number
    *
@@ -198,7 +191,7 @@ declare class Fraction {
    * new Fraction('0.9').roundTo("1/8") //=> 7 / 8
    * ```
    **/
-  roundTo: FractionParam;
+  roundTo(num: FractionInput): Fraction;
   /**
    * Gets the inverse of the fraction, means numerator and denominator are exchanged
    *
@@ -331,4 +324,4 @@ declare class Fraction {
   clone(): Fraction;
 }
 
-export { Fraction };
+export { Fraction, type FractionInput };

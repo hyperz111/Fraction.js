@@ -3,7 +3,7 @@
 This is an UNRELEASED fork from original [`fraction.js`](https://github.com/rawify/Fraction.js) with some BREAKING changes.
 If this is merged to original repo, i will deprecate this fork.
 
-1. Now this is just provide "named export" with name `Fraction`. To switch to this fork:
+1. Just provide "named export" with name `Fraction`. To switch to this fork:
 
    ```diff
    // If you in ESM
@@ -15,18 +15,26 @@ If this is merged to original repo, i will deprecate this fork.
    + const { Fraction } = require("fraction.js");
    ```
 
-2. Now you must use `new` keyword explicitly to make `Fraction` instance.
+2. Don't export `NumeratorDenominator` & `FractionParam` type.
+   ```diff
+     import {
+   -   type NumeratorDenominator,
+       type FractionInput,
+   -   type FractionParam,
+     } from "fraction.js";
+   ```
+3. You must use `new` keyword explicitly to make `Fraction` instance.
    ```diff
    - Fraction(10)
    + new Fraction(10)
    ```
-3. Two arguments type is REMOVED, use array instead. If you see "two arguments" usage in this README, ignore it & replace with array.
+4. Two arguments type is REMOVED, use array instead. If you see "two arguments" usage in this README, ignore it & replace with array.
    ```diff
    - new Fraction(10, 5)
    + new Fraction([10, 5])
    ```
-4. Don't provide UMD version.
-5. Minimum Node.js version is `10.8`
+5. Don't provide UMD version.
+6. Minimum Node.js version is `10.8`
 
 # Fraction.js - ℚ in JavaScript
 
